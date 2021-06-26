@@ -1,0 +1,239 @@
+institute_types_id,name
+1,State Ministry of Provincial Councils and Local Government
+1,State Ministry of Education Reforms, Open Universities and Distance Learning Promotion
+1,Ministry of Irrigation
+1,State Ministry of Canals and Common Infrastruture Development in Settlements in Mahaweli Zones
+1,State Ministry of Tanks, Reservoirs and  Irrigation Development Related to Rural Paddy Fields
+1,Ministry of Fisheries
+1,State Ministry of Ornamental Fish, Inland Fish and Prawn Farming, Fishery HarbourDevelopment, Multiday Fishing  Activities and Fish Exports
+1,State Ministry of Rural and Divisional Drinking Water Supply Projects  Development
+1,Ministry of Tourism
+1,State Ministry of Wildlife Protection, Adoption of Safety Measures Including the Construction of Electrical Fences and Trenches and Reforestation and forest resource Development
+1,State Ministry of Aviation and Export Zones Development
+1,Ministry of Energy
+1,Ministry of Transport
+1,Ministry of Labour
+1,State Ministry of Prison Reforms and Prisoners’ Rehabilitation
+1,State Ministry of Foreign Employment Promotion and Market  Diversification
+1,Ministry of Wildlife and Forest Conservation
+1,Ministry of Justice
+1,State Ministry of Livestock, Farm Promotion and Dairy and Egg Related Industries
+1,State Ministry of Vehicle Regulation, Bus Transport Services and Train Compartments and Motor Car Industry
+1,Ministry of Water Supply
+1,Ministry of Buddhasasana
+1,State Ministry of Land Management, State Enterprises Land and Property Development
+1,Ministry of Public Services, Provincial Councils and Local Government
+1,State Ministry of Samurdhi, Household Economy, Micro Finance, Self Employment,Business Development and Underutilized State Resources Development
+1,Ministry of Lands
+1,Ministry of Agriculture
+1,State Ministry of Production and Supply of Fertilizer and Regulation of  Chemical Fertilizer and Insecticide Use
+1,State Ministry of Paddy and Grains, Organic Food, Vegetables, Fruits, Chilies,Onion and Potato Cultivation Promotion, Seed Production and AdvancedTechnology Agriculture
+1,State Ministry of Rattan, Brass, Pottery, Furniture and Rural Industrial  Promotion
+1,Ministry of Finance
+1,State Ministry of Cooperative Services, Marketing Development and Consumer Protection
+1,State Ministry of Warehouse Facilities, Container Yards, Port Supply Facilities and Boats and Shipping Industry Development
+1,State Ministry of Batik, Handloom and Local Apparel Products
+1,Ministry of Industries
+1,Ministry of Ports and Shipping
+1,Ministry of Trade
+1,Ministry of Environment
+1,State Ministry of Indigenous Medicine Promotion, Rural and Ayurvedic HospitalsDevelopment and Community Health
+1,State Ministry of Production, Supply and Regulation of Pharmaceuticals
+1,State Ministry of National Heritage, Performing Arts and Rural Arts Promotion
+1,State Ministry of Rural Housing, Construction and Building Material Industries
+1,State Ministry of Urban Development, Coast Conservation, Waste Disposal and Community Cleanliness
+1,State Ministry of Estate Housing and Community Infrastructure
+1,Ministry of Urban Development and Housing
+1,Ministry of Foreign 
+1,State Ministry of Regional Cooperation
+1,State Ministry of Postal Services and Professional Development of Journalists
+1,State Ministry of Rural and School Sports Infrastructure Improvement
+1,Ministry of Mass Media
+1,Ministry of Youth and Sports
+1,State Ministry of Rural Roads and other Infrastructure
+1,State Ministry of Skills Development, Vocational Education, Research and Innovation
+1,State Ministry of Dhamma Schools, Bhikkhu Education, Piriven and Buddhist Universities
+1,State Ministry of Coconut, Kithul, Palmyrah and Rubber Cultivation Promotion and Related Industrial Product Manufacturing and Export  Diversification
+1,Ministry of Plantation
+1,State Ministry of Solar, Wind and Hydro Power Generation Projects Development
+1,Ministry of Power
+1,State Ministry of Development of Minor Crops Plantation including Sugarcane, Maize, Cashew, Pepper, Cinnamon, Cloves, Betel Related Industries and Export Promotion
+1,State Ministry of Company Estate Reforms, Tea Estates related Crops, Tea Factories Modernization and Tea Export Promotion
+1,State Ministry of Women and Child Development, Pre-schools and Primary Education, School Infrastructure and Education Services
+1,Ministry of Highways
+1,Ministry of Defence
+1,State Ministry of Gem and Jewelery related Industries
+1,Ministry of Education
+1,State Ministry of Internal Security, Home Affairs and Disaster Management
+1,Ministry of Health, Nutrition & Indigenous Medicine"
+3,Commission to Investigate Allegations of Bribery or Corruption
+3,National Pay Commission
+3,National Police Commission
+3,Office of the Cabinet of Ministers
+3,Office of the Leader of the House of Parliament
+3,Presidential Secretariat
+3,Prime Minister's Office
+3,Public Service Commission
+3,Election Commission
+3,National Procurement Commission
+3,Audit Service  Commission
+2,Department of Agrarian Development
+2,Department of Agriculture
+2,Department of Buddhist Affairs
+2,Department of Import and Export Control
+2,Department of Archaeology
+2,Comptroller General Office
+2,Department of Excise
+2,Department of Fiscal Policy
+2,Department of Information Technology Management
+2,Department of Management Services
+2,Department of National Budget
+2,Department of Public Finance
+2,Department of Sri Lanka Customs
+2,Department of Trade & Investment Policy
+2,Department of Public Enterprises
+2,Department of Fisheries and Aquatic Resources
+2,Department of Immigration & Emigration
+2,Department of National Museums
+2,Department of Registration of Persons
+2,Department of Irrigation
+2,Department of Labour
+2,Department of Manpower & Employment
+2,Department of Land Title Settlement
+2,Department of Land Commissioner General
+2,Department of Land Use Policy Planning
+2,Department of Survey
+2,Department of Forest
+2,Department of Official Languages
+2,Department of Census and Statistics
+2,Department of External Resources
+2,Department of Project Management & Monitoring
+2,Department of Government Information
+2,Department of the Government Printing
+2,Department of Rubber Development
+2,Department of Posts
+2,Department of Export Agriculture
+2,Department of Prisons
+2,Department of Pensions
+2,Department of Animal Production & Health
+2,Department of Technical Education and Training
+2,Department of Samurdhi Development
+2,Department of Sports Development
+2,Department of Motor Traffic
+2,Department of Multi-Purpose Development Task Force
+2,Department of Sri Lanka Railways
+5,Governor's Secretariat
+5,Council Secretariat  
+5,Provincial Public Service Commission
+5,Chief Secretary's Office
+5,Deputy Chief Secretary (Personnel & Training)
+5,Ministry of Local Government, Economic Promotion, Electricity and  Power, Environment Affairs, Water Supply and Drainage and Tourism
+5,Ministry of Agriculture, Land, Irrigation, Animal Production and Health and Agrarian Development
+5,Ministry of Health, Indigenous Medicine , Social Welfare, Probation  & Child Care Services, Women's Affairs and Council Affairs
+5,Ministry of Education, Cultural  and Arts Affairs, Sports and Youth Affairs and Information
+5,Ministry of Fisheries, Roads, Transport, Co-operative Development and Trade, Housing and Construction, Estate Infrastructure Facilities, Industry and Rural Development
+6,Governor's Secretariat
+6,Council Secretariat
+6,Provincial Public Service Commission 
+6,Chief Secretary's Office
+6,Deputy Chief Secretary (Personnel &Training) 
+6,The Chief Ministry and Provincial Ministry of Finance & Planning, Law & Order,  Local Government and Provincial Administration, Manpower, Education, Cultural Affairs, Tourism, Transport, Lands, Co-operative Development, Trade & Commerce, Food Supplies and Distributional Affairs and Investment, Co-ordination of the Central Province.
+6,Provincial Ministry of Health, Indigenous Medicine, Probation and Childcare Social Services
+6,Ministry of Sports, Yourth Affairs, Women Rural Development and Industries
+6,Ministry of Road Development, Power and Energy, Housing and Construction
+6,Ministry of Agriculture, Irrigation, Animal Production and Health Agrarian Development, Fisheries & Environmental Affairs
+7,Governor's Secretariat
+7,Council Secretariat
+7,Provincial Public Service Commission
+7,Chief Secretary's Office
+7,Deputy Chief Secretary (Personnel & Training)
+7,Chief Ministry
+7,Provincial Ministry of Agriculture, Animal Production, and Development, Rural Industries Development and Fisheries
+7,Provincial Ministry of Education, Cultural Affairs, Land, Land Development & Transport
+7,Provincial Ministry of Health, Indigenous Medicine, Probation & Childcare, Social
+7,Provincial Ministry of Road Development, Irrigation, Housing & Construction, Rural Electrification & Water Supply
+8,Governer's Secretariat
+8,Council Secretariat 
+8,Provincial Public Service Commission
+8,Chief Secretary's Office
+8,Deputy Chief Secretary (Personal & Training)
+8,Chief Ministry, Law and Peace, Finance & Planning, Local Government, Provincial Road Development, Rural Infrastructure & Special Projects, Tourism, Education, Information Technology & Cultural Affairs
+8,Ministry of Agriculture, Agro Products Marketing, Animal Production & Animal Health, Fisheries and Housing Affairs
+8,Ministry of Provincial Transport, Sports and Youth Affairs, Co-operative, Trade & Food and Industries Development
+8,Ministry of Provincial Irrigation, Land, Rural Development & Women Affairs
+8,Ministry of Provincial Health , Indigenous Medicine, Social Welfare, Probation & Child Care, Environment and Provincial Councils Affairs
+9,Governor's Secretariat
+9,Council Secretariat
+9,Provincial Public Service Commission
+9,Chief Secretary's Office
+9,Deputy Chief Secretary (Personal & Training)
+9,The Chief Ministry and Provincial Ministry of Finance & Planning, Law & Order,  Local Government and Provincial Administration, Human Resources, Education & Cultural Affairs, Lands, Environment, Tourism,  Co-ordination of  Investments, Co-operative Development & Food Supplies and Distribution
+9,Ministry of Provincial Agriculture, Fisheries, Animal Production and Development, Minor Irrigation & Agrarian Development
+9,Ministry of Provincial Social Welfare, Probation & Child Care, Women's Affairs, Rural Industries Development And Rural Development
+9,Ministry of Provincial Road Development, Transport, Electricity, Housing & Construction
+9,Ministry of Provincial Health, Indigenous Medicine, Sports & Youth Affairs
+10,Governor's Secretariat
+10,Council Secretariat
+10,Provincial Public Service Commission
+10,Chief Secretary's Office
+10,Deputy Chief Secretary (Personnel and Training)
+10,Chief Ministry and the Provincial Ministry of Local Government, Co-operative Development, Industries, Social Services and Probation & Child Care Services
+10,Provincial Ministry of Fisheries, Transport, Rural Development, Trade & Commerce
+10,Provincial Ministry of Agriculture Agrarian Service, Animal Husbandry, Irrigation and Environment
+10,Provincial Ministry of Health and Indigenous Medicine
+10,Provincial Ministry of Education, Cultural Affairs and Sports & Youth Affairs
+11,Governor's Office
+11,Council Secretariat 
+11,Provincial Public Service Commission
+11,Chief Secretary's office
+11,Deputy Chief Secretary (Personnel & Training)
+11,Chief Ministry of Law & Order, Finance & Planning, Local Government,  Health, Indigenous Medicine and Women's Affairs,  Co-operative, Trade and  Foods, Transport, Estate Welfare, Environment, Media, Housing and Construction
+11,Ministry of Land , Provincial Irrigation , Agriculture , Animal Production and Health and Fisheries
+11,Ministry of Social Service, Probation and Child Care, Rural Development and Rural Industries
+11,Ministry of Education, Information Technology and Cultural Affairs
+11,Ministry of Provincial Roads Development, Rural Infrastructure, Tourism, Sports and Youth Affairs
+12,Governor's Secretariat
+12,Council Secretariat  
+12,Provincial Public Service Commission
+12,Chief Secretary's Office
+12,Deputy Chief Secretary (Personnel & Training)
+12,Ministry of Chief Minister, Finance and Planning,  Law and Order, Local Government Transport & Health and Indigenious Medicine, Tourism and Engineering Service
+12,Ministry of Education, Land & Land Development, Highways & Information
+12,Ministry of Sports & Youth Affairs, Cultural and Art Afairs,  Social Welfare,  Probation & Child Care Services, Women's Affairs &Home Economics Promotion, Housing & Construction, Manpower and Employment
+12,Ministry of Agriculture, Agrarian Development,  Irrigation, Water Supply and Drainage, Food Supply & Distribution, Co-operative Development
+12,Ministry of Fisheries, Animal Production & Development, Environment Activities, Rural Industries, Power and Rural & Estate Infrastructure Development
+13,Governor's Secretariat
+13,Council Secretariat
+13,Public Service Commission
+13,Chief Secretary's Office
+13,Deputy Chief Secretary (Personnel & Training)
+13,Chief Ministry  of Finance & Planning, Law & Order, Education, Local Government,Cultural Affairs,Transport, Land, Irrigation, Economic Promotion and  Rural Infrastructure Facilities Development
+13,Ministry of Agriculture, Agrarian Development, Animal Production, Inland  Fisheries      Industry  Environment & Tourism
+13,Ministry of Road Development, Housing, Water Supply, Consumer Affairs & Co-operative and Food Supply & Distribution
+13,Ministry of Health, Indigenous Medicine, Probation and Child Care  and  Women Affairs
+13,Ministry of Youth Affairs, Sports, Social welfare, Estate, Infrastructure Development, Power & Energy, textile & Small Industries
+4,District Secretariat - Ampara
+4,District Secretariat - Anuradhapura
+4,District Secretariat - Badulla
+4,District Secretariat - Batticaloa
+4,District Secretariat - Colombo
+4,District Secretariat - Galle 
+4,District Secretariat - Gampaha
+4,District Secretariat - Hambantota
+4,District Secretariat - Jaffna
+4,District Secretariat - Kalutara
+4,District Secretariat - Kandy
+4,District Secretariat - Kegalle
+4,District Secretariat - Kilinochchi
+4,District Secretariat - Kurunegala
+4,District Secretariat - Mannar 
+4,District Secretariat - Matale
+4,District Secretariat - Matara
+4,District Secretariat - Monaragala
+4,District Secretariat - Mullative
+4,District Secretariat – Nuwara Eliya
+4,District Secretariat - Polonnaruwa
+4,District Secretariat - Puttalam
+4,District Secretariat - Rathnapura
+4,District Secretariat - Trincomalee
+4,District Secretariat - Vauniya 
