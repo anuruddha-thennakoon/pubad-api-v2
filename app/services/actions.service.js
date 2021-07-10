@@ -24,14 +24,14 @@ var actionsService = {
     getGradeVacanciesCount: getGradeVacanciesCount,
     retireOfficer: retireOfficer,
     gradeVacanyDetails: gradeVacanyDetails,
-    addActinApplication: addActinApplication,
+    addApplication: addApplication,
     getActinApplications: getActinApplications,
     updateApplication: updateApplication,
     viewOfficerById: viewOfficerById,
     updateOfficer: updateOfficer,
     getAllOfficersReport: getAllOfficersReport,
     getCurrentAllOfficers: getCurrentAllOfficers,
-    registerOfficer: registerOfficer
+    createUserAccount: createUserAccount
 }
 
 function addOfficer(inData) {
@@ -457,10 +457,10 @@ function gradeVacanyDetails(data) {
     })
 }
 
-function addActinApplication(inData) {
+function addApplication(inData) {
     return new Promise((resolve, reject) => {
 
-        actionsController.addActinApplication(inData).then((data) => {
+        actionsController.addApplication(inData).then((data) => {
             if (data.length == 0) {
                 resolve({ "success": false, "message": "Something went wrong" });
             } else {
@@ -554,10 +554,10 @@ function getCurrentAllOfficers() {
     })
 }
 
-function registerOfficer(inData) {
+function createUserAccount(inData) {
     return new Promise((resolve, reject) => {
 
-        actionsController.registerOfficer(inData).then((data) => {
+        actionsController.createUserAccount(inData).then((data) => {
             if (data.length == 0) {
                 resolve({ "success": false, "message": "Something went wrong" });
             } else {

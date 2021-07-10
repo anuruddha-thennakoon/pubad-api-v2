@@ -22,7 +22,11 @@ function adminLogin(req, res) {
   // }
 
   authenticService.adminLogin(logData).then((data) => {
-    res.status(200).send(data);
+    if (data.success) {
+      res.status(200).send(data);
+    } else {
+      res.status(401).send(data);
+    }
   }).catch((err) => {
     console.log(err)
     res.status(400).send(err);

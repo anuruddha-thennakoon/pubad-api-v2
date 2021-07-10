@@ -27,14 +27,14 @@ var actionsController = {
     getGradeVacanciesCount: getGradeVacanciesCount,
     retireOfficer: retireOfficer,
     gradeVacanyDetails: gradeVacanyDetails,
-    addActinApplication: addActinApplication,
+    addApplication: addApplication,
     getActinApplications: getActinApplications,
     updateApplication: updateApplication,
     viewOfficerById: viewOfficerById,
     updateOfficer: updateOfficer,
     getAllOfficersReport: getAllOfficersReport,
     getCurrentAllOfficers: getCurrentAllOfficers,
-    registerOfficer: registerOfficer
+    createUserAccount: createUserAccount
 }
 
 function addOfficer(data) {
@@ -473,10 +473,9 @@ function gradeVacanyDetails(data) {
     });
 }
 
-function addActinApplication(data) {
+function addApplication(data) {
     return new Promise((resolve, reject) => {
 
-        // var query = "INSERT INTO actin_application SET ?";
         var query = "INSERT INTO application SET ?"
 
         db.query(query, data, (error, results, fields) => {
@@ -590,10 +589,10 @@ function getAllOfficersReport() {
     });
 }
 
-function registerOfficer(data) {
+function createUserAccount(data) {
     return new Promise((resolve, reject) => {
 
-        var query = "INSERT INTO register_officer SET ?";
+        var query = "INSERT INTO user_accounts SET ?";
 
         db.query(query, data, (error, results, fields) => {
             if (!!error) {

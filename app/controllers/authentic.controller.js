@@ -8,7 +8,7 @@ var authenticController = {
 
 
 function adminLogin(data) {
-    var query = 'SELECT admin_users.*,user_roles.* FROM admin_users INNER JOIN user_roles ON admin_users.user_roles_id = user_roles.id WHERE admin_users.email = ' + db.escape(data.email);
+    var query = 'SELECT user_accounts.*,user_roles.* FROM user_accounts INNER JOIN user_roles ON user_accounts.user_roles_id = user_roles.id WHERE user_accounts.user_name = ' + db.escape(data.user_name);
 
     return new Promise((resolve, reject) => {
         db.query(query, (error, results, fields) => {
@@ -22,7 +22,7 @@ function adminLogin(data) {
 }
 
 function adminRegister(data) {
-    var query = "INSERT INTO admin_users SET ?";
+    var query = "INSERT INTO user_accounts SET ?";
 
     return new Promise((resolve, reject) => {
         db.query(query, data, (error, results, fields) => {
