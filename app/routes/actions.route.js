@@ -52,8 +52,8 @@ function init(router) {
         .post(gradeVacanyDetails)
     router.route('/add-application')
         .post(addApplication)
-    router.route('/get-actin-applications')
-        .get(getActinApplications)
+    router.route('/get-applications')
+        .post(getApplications)
     router.route('/update-application-status')
         .post(updateApplication)
     router.route('/view-officer')
@@ -325,9 +325,10 @@ function addApplication(req, res) {
     });
 }
 
-function getActinApplications(req, res) {
+function getApplications(req, res) {
+    let data = req.body;
 
-    actionsService.getActinApplications().then((data) => {
+    actionsService.getApplications(data).then((data) => {
         res.status(200).send(data);
     }).catch((err) => {
         console.log(err);

@@ -28,7 +28,7 @@ var actionsController = {
     retireOfficer: retireOfficer,
     gradeVacanyDetails: gradeVacanyDetails,
     addApplication: addApplication,
-    getActinApplications: getActinApplications,
+    getApplications: getApplications,
     updateApplication: updateApplication,
     viewOfficerById: viewOfficerById,
     updateOfficer: updateOfficer,
@@ -204,7 +204,7 @@ function searchOfficer(data) {
 function getServiceHistory(id) {
     return new Promise((resolve, reject) => {
 
-        var query = 'SELECT institutes.name,designations.designation,service_history.start_date,service_history.end_date,IF(service_history.status != 0, "Current", "Past") AS status FROM service_history INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN designations ON cadre_positions.designations_id = designations.id INNER JOIN institutes ON cadre_positions.institutes_id = institutes.id WHERE service_history.officers_id = ' + db.escape(id);
+        var query = 'SELECT institutes.id,institutes.name,designations.designation,service_history.start_date,service_history.end_date,service_history.status FROM service_history INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN designations ON cadre_positions.designations_id = designations.id INNER JOIN institutes ON cadre_positions.institutes_id = institutes.id WHERE service_history.officers_id =' + db.escape(id);
 
         db.query(query, (error, results, fields) => {
             if (!!error) {
@@ -490,10 +490,16 @@ function addApplication(data) {
     });
 }
 
-function getActinApplications() {
+function getApplications(data) {
     return new Promise((resolve, reject) => {
 
-        var query = 'SELECT application.*,officers.name,officers.nic FROM application INNER JOIN officers ON application.officers_id = officers.id';
+        let query = '';
+
+        if (data.institutes_id != null) {
+            query = 'SELECT * FROM application WHERE institutes_id = ' + data.institutes_id + ' AND application_type = ' + data.application_type;
+        } else {
+            query = 'SELECT * FROM application WHERE institutes_id =' + data.institutes_id;
+        }
 
         db.query(query, (error, results, fields) => {
             if (!!error) {

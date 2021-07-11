@@ -25,7 +25,7 @@ var actionsService = {
     retireOfficer: retireOfficer,
     gradeVacanyDetails: gradeVacanyDetails,
     addApplication: addApplication,
-    getActinApplications: getActinApplications,
+    getApplications: getApplications,
     updateApplication: updateApplication,
     viewOfficerById: viewOfficerById,
     updateOfficer: updateOfficer,
@@ -179,19 +179,22 @@ function searchOfficer(inData) {
     return new Promise((resolve, reject) => {
 
         actionsController.searchOfficer(inData).then((data1) => {
-
-            actionsController.getServiceHistory(data1[0].id).then((data2) => {
-                var temp = {
-                    id: data1[0].id,
-                    name: data1[0].name,
-                    nic: data1[0].nic,
-                    service_history: data2
-                }
-                resolve({ "success": true, "message": "Get data successfully", "data": temp });
-            }).catch((err) => {
-                reject(err);
-            })
-
+            if (data1.length != 0) {
+                actionsController.getServiceHistory(data1[0].id).then((data2) => {
+                    var temp = {
+                        id: data1[0].id,
+                        name: data1[0].name,
+                        nic: data1[0].nic,
+                        profile: data1[0],
+                        service_history: data2
+                    }
+                    resolve({ "success": true, "message": "Get data successfully", "data": temp });
+                }).catch((err) => {
+                    reject(err);
+                })
+            } else {
+                resolve({ "success": true, "message": "Get data successfully", "data": null });
+            }
         }).catch((err) => {
             reject(err);
         })
@@ -473,10 +476,10 @@ function addApplication(inData) {
     })
 }
 
-function getActinApplications() {
+function getApplications(data) {
     return new Promise((resolve, reject) => {
 
-        actionsController.getActinApplications().then((data) => {
+        actionsController.getApplications(data).then((data) => {
             resolve({ "success": true, "message": "Get data successfully", "data": data });
         }).catch((err) => {
             reject(err);
