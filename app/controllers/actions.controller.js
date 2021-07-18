@@ -490,28 +490,6 @@ function addApplication(data) {
     });
 }
 
-function getApplications(data) {
-    return new Promise((resolve, reject) => {
-
-        let query = '';
-
-        if (data.institutes_id != null) {
-            query = 'SELECT * FROM application WHERE institutes_id = ' + data.institutes_id + ' AND application_type = ' + data.application_type;
-        } else {
-            query = 'SELECT * FROM application WHERE institutes_id =' + data.institutes_id;
-        }
-
-        db.query(query, (error, results, fields) => {
-            if (!!error) {
-                dbFunc.connectionRelease;
-                reject(error);
-            } else {
-                dbFunc.connectionRelease;
-                resolve(results);
-            }
-        });
-    });
-}
 
 function updateApplication(data) {
     var query = 'UPDATE application SET status = ?,reject_reason = ?,psc_documents=?,pbad_documents=? WHERE id = ?';
@@ -601,6 +579,65 @@ function createUserAccount(data) {
         var query = "INSERT INTO user_accounts SET ?";
 
         db.query(query, data, (error, results, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(results);
+            }
+        });
+    });
+}
+
+function getApplications(data) {
+    return new Promise((resolve, reject) => {
+
+        switch (data.user_role) {
+            case '1':
+            //admin
+            case '2':
+            //pubad_user
+            case '3':
+            //psc_user
+            case '4':
+                //institute_user
+                let promises = [];
+                promises[0] = filterApplication(100, data);
+                promises[1] = filterApplication(101, data);
+                promises[2] = filterApplication(300, data);
+
+                Promise.all(promises).then((data) => {
+                    let response = {
+                        pendingList: data[0],
+                        approvedList: data[1],
+                        rejectedList: data[2]
+                    }
+                    resolve(response);
+                }).catch((err) => {
+                    reject(err);
+                })
+
+                break;
+
+            case '5':
+            //slas_officer
+        }
+    });
+}
+
+function filterApplication(status, data) {
+    return new Promise((resolve, reject) => {
+
+        let query = '';
+
+        if (data.institutes_id != null) {
+            query = 'SELECT * FROM application WHERE institutes_id = ' + data.institutes_id + ' AND (application_type = ' + data.application_type + ' AND status = ' + status + ')';
+        } else {
+            query = 'SELECT * FROM application WHERE institutes_id =' + data.institutes_id; + ' AND status = ' + status;
+        }
+
+        db.query(query, (error, results, fields) => {
             if (!!error) {
                 dbFunc.connectionRelease;
                 reject(error);
