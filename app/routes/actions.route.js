@@ -52,6 +52,8 @@ function init(router) {
         .post(gradeVacanyDetails)
     router.route('/add-application')
         .post(addApplication)
+    router.route('/get-applications-count')
+        .post(getApplicationsCount)
     router.route('/get-applications')
         .post(getApplications)
     router.route('/update-application-status')
@@ -66,6 +68,8 @@ function init(router) {
         .get(getCurrentAllOfficers)
     router.route('/register-officer')
         .post(createUserAccount)
+    router.route('/approve-application')
+        .post(approveApplication)
 }
 
 function addOfficer(req, res) {
@@ -325,6 +329,17 @@ function addApplication(req, res) {
     });
 }
 
+function getApplicationsCount(req, res) {
+    let data = req.body;
+
+    actionsService.getApplicationsCount(data).then((data) => {
+        res.status(200).send(data);
+    }).catch((err) => {
+        console.log(err);
+        res.status(400).send(err);
+    });
+}
+
 function getApplications(req, res) {
     let data = req.body;
 
@@ -397,6 +412,18 @@ function createUserAccount(req, res) {
     let data = req.body;
 
     actionsService.createUserAccount(data).then((data) => {
+        res.status(200).send(data);
+    }).catch((err) => {
+        console.log(err);
+        res.status(400).send(err);
+    });
+}
+
+function approveApplication(req, res) {
+
+    let data = req.body;
+
+    actionsService.approveApplication(data).then((data) => {
         res.status(200).send(data);
     }).catch((err) => {
         console.log(err);

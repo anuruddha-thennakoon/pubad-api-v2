@@ -28,13 +28,15 @@ var actionsController = {
     retireOfficer: retireOfficer,
     gradeVacanyDetails: gradeVacanyDetails,
     addApplication: addApplication,
-    getApplications: getApplications,
+    getApplicationsCount: getApplicationsCount,
     updateApplication: updateApplication,
     viewOfficerById: viewOfficerById,
     updateOfficer: updateOfficer,
     getAllOfficersReport: getAllOfficersReport,
     getCurrentAllOfficers: getCurrentAllOfficers,
-    createUserAccount: createUserAccount
+    createUserAccount: createUserAccount,
+    getApplications: getApplications,
+    approveApplication: approveApplication
 }
 
 function addOfficer(data) {
@@ -490,7 +492,6 @@ function addApplication(data) {
     });
 }
 
-
 function updateApplication(data) {
     var query = 'UPDATE application SET status = ?,reject_reason = ?,psc_documents=?,pbad_documents=? WHERE id = ?';
 
@@ -590,51 +591,15 @@ function createUserAccount(data) {
     });
 }
 
-function getApplications(data) {
-    return new Promise((resolve, reject) => {
-
-        switch (data.user_role) {
-            case '1':
-            //admin
-            case '2':
-            //pubad_user
-            case '3':
-            //psc_user
-            case '4':
-                //institute_user
-                let promises = [];
-                promises[0] = filterApplication(100, data);
-                promises[1] = filterApplication(101, data);
-                promises[2] = filterApplication(300, data);
-
-                Promise.all(promises).then((data) => {
-                    let response = {
-                        pendingList: data[0],
-                        approvedList: data[1],
-                        rejectedList: data[2]
-                    }
-                    resolve(response);
-                }).catch((err) => {
-                    reject(err);
-                })
-
-                break;
-
-            case '5':
-            //slas_officer
-        }
-    });
-}
-
-function filterApplication(status, data) {
+function getApplicationsCount(status, data) {
     return new Promise((resolve, reject) => {
 
         let query = '';
 
         if (data.institutes_id != null) {
-            query = 'SELECT * FROM application WHERE institutes_id = ' + data.institutes_id + ' AND (application_type = ' + data.application_type + ' AND status = ' + status + ')';
+            query = 'SELECT COUNT(*) AS count FROM application WHERE institutes_id = ' + data.institutes_id + ' AND (application_type = ' + data.application_type + ' AND status = ' + status + ')';
         } else {
-            query = 'SELECT * FROM application WHERE institutes_id =' + data.institutes_id; + ' AND status = ' + status;
+            query = 'SELECT COUNT(*) AS count FROM application WHERE application_type =' + data.application_type + ' AND status = ' + status;
         }
 
         db.query(query, (error, results, fields) => {
@@ -643,6 +608,44 @@ function filterApplication(status, data) {
                 reject(error);
             } else {
                 dbFunc.connectionRelease;
+                resolve(results[0]);
+            }
+        });
+    });
+}
+
+function getApplications(status, data) {
+    return new Promise((resolve, reject) => {
+
+        let query = '';
+
+        if (data.institutes_id != null) {
+            query = 'SELECT * FROM application WHERE institutes_id = ' + data.institutes_id + ' AND (application_type = ' + data.application_type + ' AND status = ' + status + ')';
+        } else {
+            query = 'SELECT * FROM application WHERE application_type =' + data.application_type + ' AND status = ' + status;
+        }
+
+        db.query(query, (error, results, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(results);
+            }
+        });
+    });
+}
+
+function approveApplication(status, data) {
+    var query = 'UPDATE application SET status = ?, reject_reason = ? WHERE id = ?';
+
+    return new Promise((resolve, reject) => {
+        db.query(query, [status, data.reject_reason, data.application_id], (error, results, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
                 resolve(results);
             }
         });

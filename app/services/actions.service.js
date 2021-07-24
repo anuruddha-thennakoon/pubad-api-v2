@@ -25,13 +25,15 @@ var actionsService = {
     retireOfficer: retireOfficer,
     gradeVacanyDetails: gradeVacanyDetails,
     addApplication: addApplication,
-    getApplications: getApplications,
+    getApplicationsCount: getApplicationsCount,
     updateApplication: updateApplication,
     viewOfficerById: viewOfficerById,
     updateOfficer: updateOfficer,
     getAllOfficersReport: getAllOfficersReport,
     getCurrentAllOfficers: getCurrentAllOfficers,
-    createUserAccount: createUserAccount
+    createUserAccount: createUserAccount,
+    getApplications: getApplications,
+    approveApplication: approveApplication
 }
 
 function addOfficer(inData) {
@@ -476,18 +478,113 @@ function addApplication(inData) {
     })
 }
 
+function getApplicationsCount(data) {
+    return new Promise((resolve, reject) => {
+
+        switch (data.user_role) {
+            case '1':
+            //admin
+            case '2':
+            //pubad_user
+            case '3':
+            //psc_user
+            case '4':
+                //institute_user
+                let promises = [];
+                promises[0] = actionsController.getApplicationsCount(100, data);
+                promises[1] = actionsController.getApplicationsCount(101, data);
+                promises[2] = actionsController.getApplicationsCount(300, data);
+
+                Promise.all(promises).then((data) => {
+                    let response = {
+                        pendingCount: data[0].count,
+                        approvedCount: data[1].count,
+                        rejectedCount: data[2].count
+                    }
+                    resolve({ "success": true, "message": "Get data successfully", "data": response });
+                }).catch((err) => {
+                    reject(err);
+                })
+
+                break;
+
+            case '5':
+            //slas_officer
+        }
+    });
+}
+
 function getApplications(data) {
     return new Promise((resolve, reject) => {
 
-        actionsController.getApplications(data).then((data) => {
-            resolve({ "success": true, "message": "Get data successfully", "data": data });
-        }).catch((err) => {
-            reject(err);
-        })
+        switch (data.user_role) {
+            case '1':
+            //admin
+            case '2':
+            //pubad_user
+            case '3':
+            //psc_user
+            case '4':
+                //institute_user
+                let status = 0;
+                if (data.applicationStatus == 'Pending') {
+                    status = 100;
+                } else if (data.applicationStatus == 'Rejected') {
+                    status = 101;
+                } else if (data.applicationStatus == 'Approved') {
+                    status = 300;
+                }
 
-    })
+                actionsController.getApplications(status, data).then((data) => {
+                    resolve({ "success": true, "message": "Get data successfully", "data": data });
+                }).catch((err) => {
+                    reject(err);
+                })
+
+                break;
+
+            case '5':
+            //slas_officer
+        }
+    });
 }
 
+function approveApplication(data) {
+    return new Promise((resolve, reject) => {
+
+        switch (data.user_role) {
+            case '1':
+            //admin
+            case '2':
+            //pubad_user
+            case '3':
+            //psc_user
+            case '4':
+                //institute_user
+                let status = 0;
+                if (data.is_approved) {
+                    status = 100;
+                } else {
+                    status = 101;
+                }
+
+                actionsController.approveApplication(status, data).then((data) => {
+                    if (data.length == 0) {
+                        resolve({ "success": false, "message": "Something went wrong" });
+                    } else {
+                        resolve({ "success": true, "message": "Application approved successfully" });
+                    }
+                }).catch((err) => {
+                    reject(err);
+                })
+
+                break;
+
+            case '5':
+            //slas_officer
+        }
+    });
+}
 
 function updateApplication(inData) {
     return new Promise((resolve, reject) => {
