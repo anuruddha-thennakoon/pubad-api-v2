@@ -1,0 +1,27 @@
+version: '3.1'
+
+services:
+  nodejs:
+    build: .
+    environment:
+      - MYSQL_HOST=localhost
+      - MYSQL_USER=pubaduser
+      - MYSQL_PASS=@#123456
+      - MYSQL_DB=pubad
+    depends_on:
+      - db
+    ports:
+      - "9494:9494"
+  db:
+    platform: linux/x86_64
+    image: mysql
+    restart: always
+    environment:
+      - MYSQL_USER=pubaduser
+      - MYSQL_PASSWORD=@#123456
+      - MYSQL_ROOT_PASSWORD=@#123456
+      - MYSQL_DB=pubad
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
