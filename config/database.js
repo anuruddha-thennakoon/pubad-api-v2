@@ -18,11 +18,12 @@ const mysql = require('mysql');
 //     database: 'bismart'
 // })
 
+//Local
 module.exports = mysql.createPool({
     connectionLimit : 100,
     host : 'localhost',
-    user :  'root',
-    password: '123456',
+    user :  'localuser',
+    password: '@#123456',
     database: 'pubad'
 })
 
