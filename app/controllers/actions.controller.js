@@ -591,7 +591,7 @@ function createUserAccount(data) {
     });
 }
 
-function getApplicationsCount(status, data) {
+function getApplicationsCount(status_name, status, data) {
     return new Promise((resolve, reject) => {
 
         let query = '';
@@ -608,21 +608,25 @@ function getApplicationsCount(status, data) {
                 reject(error);
             } else {
                 dbFunc.connectionRelease;
-                resolve(results[0]);
+                resolve({
+                    status: status,
+                    status_name: status_name,
+                    count: results[0].count
+                });
             }
         });
     });
 }
 
-function getApplications(status, data) {
+function getApplications(data) {
     return new Promise((resolve, reject) => {
 
         let query = '';
 
         if (data.institutes_id != null) {
-            query = 'SELECT * FROM application WHERE institutes_id = ' + data.institutes_id + ' AND (application_type = ' + data.application_type + ' AND status = ' + status + ')';
+            query = 'SELECT * FROM application WHERE institutes_id = ' + data.institutes_id + ' AND (application_type = ' + data.application_type + ' AND status = ' + data.application_status + ')';
         } else {
-            query = 'SELECT * FROM application WHERE application_type =' + data.application_type + ' AND status = ' + status;
+            query = 'SELECT * FROM application WHERE application_type =' + data.application_type + ' AND status = ' + data.application_status;
         }
 
         db.query(query, (error, results, fields) => {
@@ -637,11 +641,11 @@ function getApplications(status, data) {
     });
 }
 
-function approveApplication(status, data) {
+function approveApplication(data) {
     var query = 'UPDATE application SET status = ?, reject_reason = ? WHERE id = ?';
 
     return new Promise((resolve, reject) => {
-        db.query(query, [status, data.reject_reason, data.application_id], (error, results, fields) => {
+        db.query(query, [data.status, data.reject_reason, data.application_id], (error, results, fields) => {
             if (!!error) {
                 dbFunc.connectionRelease;
                 reject(error);

@@ -489,25 +489,31 @@ function getApplicationsCount(data) {
 
             case '2':
                 //pubad_user
-                promises[0] = actionsController.getApplicationsCount(constants.PUBAD_PENDING, data);//pending
-                promises[1] = actionsController.getApplicationsCount(constants.PUBAD_APPROVED, data);//approved
-                promises[2] = actionsController.getApplicationsCount(constants.PUBAD_REJECTED, data);//rejected
+                promises[0] = actionsController.getApplicationsCount('Pending', 100, data);
+                promises[1] = actionsController.getApplicationsCount('Recommended to PSC', 200, data);
+                promises[2] = actionsController.getApplicationsCount('Submitted to Commission', 300, data);
+                promises[3] = actionsController.getApplicationsCount('Order Convey by PSC', 400, data);
+                promises[4] = actionsController.getApplicationsCount('Return by PSC', 201, data);
+                promises[5] = actionsController.getApplicationsCount('Return to Institute', 101, data);
 
                 break;
 
             case '3':
                 //psc_user
-                promises[0] = actionsController.getApplicationsCount(constants.PSC_PENDING, data);//pending
-                promises[1] = actionsController.getApplicationsCount(constants.PSC_APPROVED, data);//approved
-                promises[2] = actionsController.getApplicationsCount(constants.PSC_REJECTED, data);//rejected
+                promises[0] = actionsController.getApplicationsCount('Pending', 200, data);
+                promises[1] = actionsController.getApplicationsCount('Return to PUBAD', 201, data);
+                promises[2] = actionsController.getApplicationsCount('Submitted to Commission', 300, data);
+                promises[3] = actionsController.getApplicationsCount('Order Convey by PSC', 400, data);
 
                 break;
 
             case '4':
                 //institute_user
-                promises[0] = actionsController.getApplicationsCount(constants.INSTITUTE_PENDING, data);//pending
-                promises[1] = actionsController.getApplicationsCount(constants.INSTITUTE_APPROVED, data);//approved
-                promises[2] = actionsController.getApplicationsCount(constants.INSTITUTE_REJECTED, data);//rejected
+                promises[0] = actionsController.getApplicationsCount('Submitted to PUBAD', 100, data);
+                promises[1] = actionsController.getApplicationsCount('Return by PUBAD', 101, data);
+                promises[2] = actionsController.getApplicationsCount('Recommended to PSC', 200, data);
+                promises[3] = actionsController.getApplicationsCount('Submitted to Commission', 300, data);
+                promises[4] = actionsController.getApplicationsCount('Order Convey by PSC', 400, data);
 
                 break;
 
@@ -517,12 +523,7 @@ function getApplicationsCount(data) {
         }
 
         Promise.all(promises).then((data) => {
-            let response = {
-                pendingCount: data[0].count,
-                approvedCount: data[1].count,
-                rejectedCount: data[2].count
-            }
-            resolve({ "success": true, "message": "Get data successfully", "data": response });
+            resolve({ "success": true, "message": "Get data successfully", "data": data });
         }).catch((err) => {
             reject(err);
         })
@@ -532,55 +533,8 @@ function getApplicationsCount(data) {
 
 function getApplications(data) {
     return new Promise((resolve, reject) => {
-        let status = 0;
 
-        switch (data.user_role) {
-            case '1':
-                //admin
-                break;
-
-            case '2':
-                //pubad_user
-                if (data.applicationStatus == 'Pending') {
-                    status = constants.PUBAD_PENDING;
-                } else if (data.applicationStatus == 'Rejected') {
-                    status = constants.PUBAD_REJECTED;
-                } else if (data.applicationStatus == 'Approved') {
-                    status = constants.PUBAD_APPROVED;
-                }
-
-                break;
-
-            case '3':
-                //psc_user
-                if (data.applicationStatus == 'Pending') {
-                    status = constants.PSC_PENDING;
-                } else if (data.applicationStatus == 'Rejected') {
-                    status = constants.PSC_REJECTED;
-                } else if (data.applicationStatus == 'Approved') {
-                    status = constants.PSC_APPROVED;
-                }
-
-                break;
-
-            case '4':
-                //institute_user
-                if (data.applicationStatus == 'Pending') {
-                    status = constants.INSTITUTE_PENDING;
-                } else if (data.applicationStatus == 'Rejected') {
-                    status = constants.INSTITUTE_REJECTED;
-                } else if (data.applicationStatus == 'Approved') {
-                    status = constants.INSTITUTE_APPROVED;
-                }
-
-                break;
-
-            case '5':
-                //slas_officer
-                break;
-        }
-
-        actionsController.getApplications(status, data).then((data) => {
+        actionsController.getApplications(data).then((data) => {
             resolve({ "success": true, "message": "Get data successfully", "data": data });
         }).catch((err) => {
             reject(err);
@@ -591,43 +545,14 @@ function getApplications(data) {
 
 function approveApplication(data) {
     return new Promise((resolve, reject) => {
-        let status = 0;
 
-        switch (data.user_role) {
-            case '1':
-                //admin
-                break;
-
-            case '2':
-                //pubad_user
-                if (data.is_approved) {
-                    status = constants.PUBAD_ACTION_APPROVED;
-                } else {
-                    status = constants.PUBAD_ACTION_REJECTED;
-                }
-
-                break;
-
-            case '3':
-                //psc_user
-                if (data.is_approved) {
-                    status = constants.PSC_ACTION_APPROVED;
-                } else {
-                    status = constants.PSC_ACTION_REJECTED;
-                }
-
-                break;
-
-            case '4':
-                //institute_user
-                break;
-
-            case '5':
-                //slas_officer
-                break;
+        if (data.approved === 1) {
+            data.status = data.status + 100;
+        } else {
+            data.status = data.status + 1;
         }
 
-        actionsController.approveApplication(status, data).then((data) => {
+        actionsController.approveApplication(data).then((data) => {
             if (data.length == 0) {
                 resolve({ "success": false, "message": "Something went wrong" });
             } else {

@@ -8,24 +8,6 @@ var constants = {
     CATEGORY_PATH: '../upload/category/',
     ADS_PATH: '../upload/ads/',
     LOGS_PATH: '../logs/',
-
-    INSTITUTE_PENDING: 100,
-    INSTITUTE_APPROVED: 101,
-    INSTITUTE_REJECTED: 300,
-
-    PUBAD_PENDING: 100,
-    PUBAD_APPROVED: 300,
-    PUBAD_REJECTED: 201,
-
-    PSC_PENDING: 200,
-    PSC_APPROVED: 300,
-    PSC_REJECTED: 201,
-
-    PUBAD_ACTION_APPROVED: 200,
-    PUBAD_ACTION_REJECTED: 101,
-
-    PSC_ACTION_APPROVED: 300,
-    PSC_ACTION_REJECTED: 201,
 }
 
 module.exports = constants;
