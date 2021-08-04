@@ -493,15 +493,15 @@ function getApplicationsCount(data) {
                 promises[1] = actionsController.getApplicationsCount('Recommended to PSC', 200, data);
                 promises[2] = actionsController.getApplicationsCount('Submitted to Commission', 300, data);
                 promises[3] = actionsController.getApplicationsCount('Order Convey by PSC', 400, data);
-                promises[4] = actionsController.getApplicationsCount('Return by PSC', 201, data);
-                promises[5] = actionsController.getApplicationsCount('Return to Institute', 101, data);
+                promises[4] = actionsController.getApplicationsCount('Returned by PSC', 201, data);
+                promises[5] = actionsController.getApplicationsCount('Returned to Institute', 101, data);
 
                 break;
 
             case '3':
                 //psc_user
                 promises[0] = actionsController.getApplicationsCount('Pending', 200, data);
-                promises[1] = actionsController.getApplicationsCount('Return to PUBAD', 201, data);
+                promises[1] = actionsController.getApplicationsCount('Returned to PUBAD', 201, data);
                 promises[2] = actionsController.getApplicationsCount('Submitted to Commission', 300, data);
                 promises[3] = actionsController.getApplicationsCount('Order Convey by PSC', 400, data);
 
@@ -510,7 +510,7 @@ function getApplicationsCount(data) {
             case '4':
                 //institute_user
                 promises[0] = actionsController.getApplicationsCount('Submitted to PUBAD', 100, data);
-                promises[1] = actionsController.getApplicationsCount('Return by PUBAD', 101, data);
+                promises[1] = actionsController.getApplicationsCount('Returned by PUBAD', 101, data);
                 promises[2] = actionsController.getApplicationsCount('Recommended to PSC', 200, data);
                 promises[3] = actionsController.getApplicationsCount('Submitted to Commission', 300, data);
                 promises[4] = actionsController.getApplicationsCount('Order Convey by PSC', 400, data);
@@ -547,9 +547,17 @@ function approveApplication(data) {
     return new Promise((resolve, reject) => {
 
         if (data.approved === 1) {
-            data.status = data.status + 100;
+            if (data.status % 2 == 0) {
+                data.status = data.status + 100;
+            } else {
+                data.status = data.status + 100 - 1;
+            }
         } else {
-            data.status = data.status + 1;
+            if (data.status % 2 == 0) {
+                data.status = data.status + 1;
+            } else {
+                data.status = data.status - 100;
+            }
         }
 
         actionsController.approveApplication(data).then((data) => {
