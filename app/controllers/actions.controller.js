@@ -36,7 +36,8 @@ var actionsController = {
     getCurrentAllOfficers: getCurrentAllOfficers,
     createUserAccount: createUserAccount,
     getApplications: getApplications,
-    approveApplication: approveApplication
+    approveApplication: approveApplication,
+    getAllUsers: getAllUsers
 }
 
 function addOfficer(data) {
@@ -650,6 +651,22 @@ function approveApplication(data) {
                 dbFunc.connectionRelease;
                 reject(error);
             } else {
+                resolve(results);
+            }
+        });
+    });
+}
+
+function getAllUsers() {
+    var query = 'SELECT * FROM user_accounts WHERE id != 3 && id != 4 && id != 5 && id != 6';
+
+    return new Promise((resolve, reject) => {
+        db.query(query, (error, results, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
                 resolve(results);
             }
         });

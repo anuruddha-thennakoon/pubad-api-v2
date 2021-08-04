@@ -70,6 +70,8 @@ function init(router) {
         .post(createUserAccount)
     router.route('/approve-application')
         .post(approveApplication)
+    router.route('/all-users')
+        .get(getAllUsers)
 }
 
 function addOfficer(req, res) {
@@ -424,6 +426,16 @@ function approveApplication(req, res) {
     let data = req.body;
 
     actionsService.approveApplication(data).then((data) => {
+        res.status(200).send(data);
+    }).catch((err) => {
+        console.log(err);
+        res.status(400).send(err);
+    });
+}
+
+function getAllUsers(req, res) {
+
+    actionsService.getAllUsers().then((data) => {
         res.status(200).send(data);
     }).catch((err) => {
         console.log(err);

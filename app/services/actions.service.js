@@ -33,7 +33,8 @@ var actionsService = {
     getCurrentAllOfficers: getCurrentAllOfficers,
     createUserAccount: createUserAccount,
     getApplications: getApplications,
-    approveApplication: approveApplication
+    approveApplication: approveApplication,
+    getAllUsers: getAllUsers
 }
 
 function addOfficer(inData) {
@@ -650,6 +651,18 @@ function createUserAccount(inData) {
             } else {
                 resolve({ "success": true, "message": "Designation added successfully" });
             }
+        }).catch((err) => {
+            reject(err);
+        })
+
+    })
+}
+
+function getAllUsers() {
+    return new Promise((resolve, reject) => {
+
+        actionsController.getAllUsers().then((data) => {
+            resolve({ "success": true, "message": "Get data successfully", "data": data });
         }).catch((err) => {
             reject(err);
         })
