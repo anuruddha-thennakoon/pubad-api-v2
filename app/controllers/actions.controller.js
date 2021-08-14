@@ -37,7 +37,9 @@ var actionsController = {
     createUserAccount: createUserAccount,
     getApplications: getApplications,
     approveApplication: approveApplication,
-    getAllUsers: getAllUsers
+    getAllUsers: getAllUsers,
+    approveUser: approveUser,
+    getCadres: getCadres
 }
 
 function addOfficer(data) {
@@ -526,10 +528,11 @@ function viewOfficerById(data) {
 }
 
 function updateOfficer(data) {
-    var query = 'UPDATE officers SET seniority_no = ?,service_confirmed = ?,gender = ?,address = ?,mobile = ?,email = ?,grade_iii_entry = ?,grade_ii_promoted = ?,grade_i_promoted = ?,special_grade_promoted = ?,dob = ?,grades_id = ?,service_confirmed_status = ?,grade_i_promoted_status = ?,grade_ii_promoted_status = ?,special_grade_promoted_status = ?,slas_batch = ? WHERE id = ?';
+    var query = 'UPDATE officers SET nic = ?,seniority_no = ?,service_confirmed = ?,gender = ?,address = ?,mobile = ?,email = ?,grade_iii_entry = ?,grade_ii_promoted = ?,grade_i_promoted = ?,special_grade_promoted = ?,dob = ?,grades_id = ?,service_confirmed_status = ?,grade_i_promoted_status = ?,grade_ii_promoted_status = ?,special_grade_promoted_status = ?,slas_batch = ? WHERE id = ?';
 
     return new Promise((resolve, reject) => {
         db.query(query, [
+            data.nic,
             data.seniority_no,
             data.service_confirmed,
             data.gender,
@@ -658,7 +661,38 @@ function approveApplication(data) {
 }
 
 function getAllUsers() {
-    var query = 'SELECT * FROM user_accounts WHERE id != 3 && id != 4 && id != 5 && id != 6';
+    var query = 'SELECT user_accounts.*,institutes.name AS institute,designations.designation FROM user_accounts INNER JOIN institutes ON user_accounts.institutes_id = institutes.id INNER JOIN designations ON user_accounts.designation = designations.id WHERE user_accounts.id != 3 && user_accounts.id != 4 && user_accounts.id != 5 && user_accounts.id != 6';
+
+    return new Promise((resolve, reject) => {
+        db.query(query, (error, results, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(results);
+            }
+        });
+    });
+}
+
+function approveUser(data) {
+    var query = 'UPDATE user_accounts SET status = ? WHERE id = ?';
+
+    return new Promise((resolve, reject) => {
+        db.query(query, [data.status, data.id], (error, results, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+}
+
+function getCadres(data) {
+    var query = 'SELECT cadre_positions.*,grades.grade_name,designations.designation FROM cadre_positions INNER JOIN grades ON cadre_positions.grades_id = grades.id INNER JOIN designations ON cadre_positions.designations_id = designations.id WHERE cadre_positions.institutes_id=' + data.institute_id;
 
     return new Promise((resolve, reject) => {
         db.query(query, (error, results, fields) => {
