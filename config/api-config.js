@@ -34,25 +34,6 @@ morgan.token('body', function getBody(req, res) {
   return JSON.stringify(req.body);
 });
 
-// app.use(morgan(function (tokens, req, res) {
-//   return [
-//     tokens.method(req, res), '-',
-//     tokens['http-version'](req, res), '-',
-//     tokens.url(req, res), '-',
-//     tokens.status(req, res), '-',
-//     tokens.date(req, res), '-',
-//     tokens.res(req, res, 'content-length'), '-',
-//     tokens['response-time'](req, res), 'ms', '-',
-//     tokens['remote-addr'](req, res),
-//     tokens['remote-user'](req, res), '-',
-//     tokens['user-agent'](req, res), '-',
-//     tokens.body(req, res)
-//   ].join(' ')
-// }, {
-//   stream: fs.createWriteStream(path.join(cts.LOGS_PATH, 'access.log'), { flags: 'a' })
-// }
-// ));
-
 app.use(morgan(function (tokens, req, res) {
   return [
     tokens.method(req, res),'-',
