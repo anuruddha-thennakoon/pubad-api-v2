@@ -1,19 +1,11 @@
 var express = require("express");
 var app = express();
 var path = require('path');
-const mysql = require('mysql');
-const jwt = require('jsonwebtoken');
-var db = require('./database');
 var dbfunc = require('./db-function');
-var http = require('http')
 var bodyParser = require('body-parser');
-var errorCode = require('../common/error-code')
-var errorMessage = require('../common/error-methods')
 var checkToken = require('./check-token');
 var cors = require('cors');
 var morgan = require('morgan');
-var fs = require('fs');
-var cts = require('../config/constants');
 
 const upload = require("../app/controllers/upload.controller");
 
