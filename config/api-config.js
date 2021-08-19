@@ -46,7 +46,7 @@ app.use(cors());
 app.use(bodyParser.json({ limit: '100mb', extended: true }));
 
 app.post('/api/v1/upload', upload.upload.single('file'), (req, res, next) => {
-  var path = "https://img.bismart.lk/uploads/";
+  var path = "http://hrms.pubad.gov.lk/uploads/";
   try {
     return res.status(200).json({
       sucess: true,
