@@ -3,7 +3,7 @@ const path = require('path');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads');
+        cb(null, '/home/slas-info/actions-runner/pubad-admin/pubad-admin-v2/pubad-admin-v2/dist/uploads');
     },
     filename: (req, file, cb) => {
         // console.log('file ',file);
