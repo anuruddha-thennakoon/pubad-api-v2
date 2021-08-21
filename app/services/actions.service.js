@@ -679,6 +679,11 @@ function approveApplication(data) {
 
             case 2:
                 //Class II Promotion
+                if (data.approved === 1) {
+                    data.status = 400;
+                } else {
+                    data.status = 101;
+                }
                 break;
 
             case 3:
@@ -721,6 +726,11 @@ function approveApplication(data) {
 
             case 8:
                 //Appointment
+                if (data.approved === 1) {
+                    data.status = 400;
+                } else {
+                    data.status = 101;
+                }
                 break;
         }
 
