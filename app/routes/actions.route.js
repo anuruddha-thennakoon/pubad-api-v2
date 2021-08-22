@@ -6,6 +6,8 @@ var errorMessage = require('../../common/error-methods');
 var mail = require('../../common/mailer.js');
 
 function init(router) {
+    router.route('/send-user-message')
+        .post(sendUserMessage)
     router.route('/add-officer')
         .post(addOfficer)
     router.route('/get-officers')
@@ -76,6 +78,19 @@ function init(router) {
         .post(approveUser)
     router.route('/cadres')
         .post(getCadres)
+}
+
+function sendUserMessage(req, res) {
+
+    let data = req.body;
+    
+    let spawn = require('child_process').spawn;
+    let process = spawn('php', ["../sms/index.php", data.message, data.number]);
+
+    process.stdout.on('data', function (data) {
+        console.log('data received from PHP Script ::' + data.toString());
+        res.send(data.toString());
+    });
 }
 
 function addOfficer(req, res) {
