@@ -1,9 +1,10 @@
 const multer = require('multer');
 const path = require('path');
+var constants = require('../../config/constants');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, '/home/slas-info/actions-runner/pubad-admin/pubad-admin-v2/pubad-admin-v2/dist/uploads');
+        cb(null, constants.FILE_PATH);
     },
     filename: (req, file, cb) => {
         // console.log('file ',file);
