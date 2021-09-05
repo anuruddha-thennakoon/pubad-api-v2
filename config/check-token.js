@@ -52,5 +52,3 @@ module.exports = function checkToken(req, res, next) {
   }
 
 }
-
-
