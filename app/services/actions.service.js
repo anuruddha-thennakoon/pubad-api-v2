@@ -499,9 +499,9 @@ function getApplicationsCount(data) {
 
                     case 2:
                         //Class II Promotion
-                        promises[0] = actionsController.getApplicationsCount('Pending', 100, data);
-                        promises[1] = actionsController.getApplicationsCount('Approved', 400, data);
-                        promises[2] = actionsController.getApplicationsCount('Returned', 101, data);
+                        // promises[0] = actionsController.getApplicationsCount('Pending', 100, data);
+                        // promises[1] = actionsController.getApplicationsCount('Approved', 400, data);
+                        // promises[2] = actionsController.getApplicationsCount('Returned', 101, data);
 
                         break;
 
