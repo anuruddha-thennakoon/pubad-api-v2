@@ -78,12 +78,14 @@ function init(router) {
         .post(approveUser)
     router.route('/cadres')
         .post(getCadres)
+    router.route('/edit-cadre')
+        .post(updateCadre)
 }
 
 function sendUserMessage(req, res) {
 
     let data = req.body;
-    
+
     let spawn = require('child_process').spawn;
     let process = spawn('php', ["../sms/index.php", data.message, data.number]);
 
@@ -479,6 +481,18 @@ function getCadres(req, res) {
     let data = req.body;
 
     actionsService.getCadres(data).then((data) => {
+        res.status(200).send(data);
+    }).catch((err) => {
+        console.log(err);
+        res.status(400).send(err);
+    });
+}
+
+function updateCadre(req, res) {
+
+    let data = req.body;
+
+    actionsService.updateCadre(data).then((data) => {
         res.status(200).send(data);
     }).catch((err) => {
         console.log(err);

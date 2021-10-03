@@ -39,7 +39,8 @@ var actionsController = {
     approveApplication: approveApplication,
     getAllUsers: getAllUsers,
     approveUser: approveUser,
-    getCadres: getCadres
+    getCadres: getCadres,
+    updateCadre: updateCadre
 }
 
 function addOfficer(data) {
@@ -701,6 +702,21 @@ function getCadres(data) {
                 reject(error);
             } else {
                 dbFunc.connectionRelease;
+                resolve(results);
+            }
+        });
+    });
+}
+
+function updateCadre(data) {
+    var query = 'UPDATE cadre_positions SET no_of_cadre = ? WHERE id = ?';
+
+    return new Promise((resolve, reject) => {
+        db.query(query, [data.no_of_cadre, data.id], (error, results, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
                 resolve(results);
             }
         });

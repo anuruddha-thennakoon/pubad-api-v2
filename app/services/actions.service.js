@@ -36,7 +36,8 @@ var actionsService = {
     approveApplication: approveApplication,
     getAllUsers: getAllUsers,
     approveUser: approveUser,
-    getCadres: getCadres
+    getCadres: getCadres,
+    updateCadre: updateCadre
 }
 
 function addOfficer(inData) {
@@ -860,6 +861,22 @@ function getCadres(data) {
 
         actionsController.getCadres(data).then((data) => {
             resolve({ "success": true, "message": "Get data successfully", "data": data });
+        }).catch((err) => {
+            reject(err);
+        })
+
+    })
+}
+
+function updateCadre(inData) {
+    return new Promise((resolve, reject) => {
+
+        actionsController.updateCadre(inData).then((data) => {
+            if (data.length == 0) {
+                resolve({ "success": false, "message": "Something went wrong" });
+            } else {
+                resolve({ "success": true, "message": "Designation added successfully" });
+            }
         }).catch((err) => {
             reject(err);
         })
