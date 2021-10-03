@@ -496,6 +496,10 @@ function getApplicationsCount(data) {
                 switch (data.application_type) {
                     case 1:
                         //Acting Appointment
+                        promises[0] = actionsController.getApplicationsCount('Pending', 100, data);
+                        promises[1] = actionsController.getApplicationsCount('Approved', 400, data);
+                        promises[2] = actionsController.getApplicationsCount('Rejected', 101, data);
+
                         break;
 
                     case 2:
@@ -594,6 +598,10 @@ function getApplicationsCount(data) {
                 switch (data.application_type) {
                     case 1:
                         //Acting Appointment
+                        promises[0] = actionsController.getApplicationsCount('Submitted to PUBAD', 100, data);
+                        promises[1] = actionsController.getApplicationsCount('Returned by PUBAD', 101, data);
+                        promises[2] = actionsController.getApplicationsCount('Approved', 400, data);
+
                         break;
 
                     case 2:
@@ -676,6 +684,11 @@ function approveApplication(data) {
         switch (data.application_type) {
             case 1:
                 //Acting Appointment
+                if (data.approved === 1) {
+                    data.status = 400;
+                } else {
+                    data.status = 101;
+                }
                 break;
 
             case 2:
