@@ -1,5 +1,6 @@
 var actionsController = require("../controllers/actions.controller");
 var constants = require('../../config/constants');
+const { ADMIN, PUBAD, ACTING, PROMOTION, CONFIRMATION, TRANSFER, APPOINTMENT, PSC, INSTITUTE, SLAS_OFFICER } = require("../../config/types");
 
 var actionsService = {
     addOfficer: addOfficer,
@@ -487,173 +488,106 @@ function getApplicationsCount(data) {
         let promises = [];
 
         switch (data.user_role) {
-            case '1':
-                //admin
+            case ADMIN:
                 break;
 
-            case '2':
-                //pubad_user
+            case PUBAD:
                 switch (data.application_type) {
-                    case 1:
-                        //Acting Appointment
+                    case ACTING:
                         promises[0] = actionsController.getApplicationsCount('Pending', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Approved', 400, data);
                         promises[2] = actionsController.getApplicationsCount('Rejected', 101, data);
-
                         break;
 
-                    case 2:
-                        //Class II Promotion
+                    case PROMOTION:
                         promises[0] = actionsController.getApplicationsCount('Pending', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Approved', 400, data);
                         promises[2] = actionsController.getApplicationsCount('Rejected', 101, data);
-
                         break;
 
-                    case 3:
-                        //Confirmation
+                    case CONFIRMATION:
                         promises[0] = actionsController.getApplicationsCount('Pending', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Recommended to PSC', 200, data);
                         promises[2] = actionsController.getApplicationsCount('Submitted to Commission', 300, data);
                         promises[3] = actionsController.getApplicationsCount('Order Convey by PSC', 400, data);
                         promises[4] = actionsController.getApplicationsCount('Returned by PSC', 201, data);
                         promises[5] = actionsController.getApplicationsCount('Returned to Institute', 101, data);
-
                         break;
 
-                    case 4:
-                        //Re-employment
-                        break;
-
-                    case 5:
-                        //Releases
-                        break;
-
-                    case 6:
-                        //Retirement
-                        break;
-
-                    case 7:
-                        //Transfer
+                    case TRANSFER:
                         promises[0] = actionsController.getApplicationsCount('Pending', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Approved', 400, data);
                         promises[2] = actionsController.getApplicationsCount('Returned', 101, data);
-
                         break;
 
-                    case 8:
-                        //Appointment
+                    case APPOINTMENT:
                         promises[0] = actionsController.getApplicationsCount('Pending', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Approved', 400, data);
                         promises[2] = actionsController.getApplicationsCount('Returned', 101, data);
-
                         break;
                 }
                 break;
 
-            case '3':
-                //psc_user
+            case PSC:
                 switch (data.application_type) {
-                    case 1:
-                        //Acting Appointment
+                    case ACTING:
                         break;
 
-                    case 2:
-                        //Class II Promotion
+                    case PROMOTION:
                         break;
 
-                    case 3:
-                        //Confirmation
+                    case CONFIRMATION:
                         promises[0] = actionsController.getApplicationsCount('Pending', 200, data);
                         promises[1] = actionsController.getApplicationsCount('Returned to PUBAD', 201, data);
                         promises[2] = actionsController.getApplicationsCount('Submitted to Commission', 300, data);
                         promises[3] = actionsController.getApplicationsCount('Order Convey by PSC', 400, data);
-
                         break;
 
-                    case 4:
-                        //Re-employment
+                    case TRANSFER:
                         break;
 
-                    case 5:
-                        //Releases
-                        break;
-
-                    case 6:
-                        //Retirement
-                        break;
-
-                    case 7:
-                        //Transfer
-                        break;
-
-                    case 8:
-                        //Appointment
+                    case APPOINTMENT:
                         break;
                 }
                 break;
 
-            case '4':
-                //institute_user
+            case INSTITUTE:
                 switch (data.application_type) {
-                    case 1:
-                        //Acting Appointment
+                    case ACTING:
                         promises[0] = actionsController.getApplicationsCount('Submitted to PUBAD', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Returned by PUBAD', 101, data);
                         promises[2] = actionsController.getApplicationsCount('Approved', 400, data);
-
                         break;
 
-                    case 2:
-                        //Class II Promotion
+                    case PROMOTION:
                         promises[0] = actionsController.getApplicationsCount('Submitted to PUBAD', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Returned by PUBAD', 101, data);
                         promises[2] = actionsController.getApplicationsCount('Approved', 400, data);
-
                         break;
 
-                    case 3:
-                        //Confirmation
+                    case CONFIRMATION:
                         promises[0] = actionsController.getApplicationsCount('Submitted to PUBAD', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Returned by PUBAD', 101, data);
                         promises[2] = actionsController.getApplicationsCount('Recommended to PSC', 200, data);
                         promises[3] = actionsController.getApplicationsCount('Submitted to Commission', 300, data);
                         promises[4] = actionsController.getApplicationsCount('Order Convey by PSC', 400, data);
-
                         break;
 
-                    case 4:
-                        //Re-employment
-                        break;
-
-                    case 5:
-                        //Releases
-                        break;
-
-                    case 6:
-                        //Retirement
-                        break;
-
-                    case 7:
-                        //Transfer
+                    case TRANSFER:
                         promises[0] = actionsController.getApplicationsCount('Submitted to PUBAD', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Returned by PUBAD', 101, data);
                         promises[2] = actionsController.getApplicationsCount('Approved', 400, data);
-
                         break;
 
-                    case 8:
-                        //Appointment
+                    case APPOINTMENT:
                         promises[0] = actionsController.getApplicationsCount('Submitted to PUBAD', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Returned by PUBAD', 101, data);
                         promises[2] = actionsController.getApplicationsCount('Approved', 400, data);
-
                         break;
                 }
                 break;
 
-            case '5':
-                //slas_officer
+            case SLAS_OFFICER:
                 break;
         }
 
@@ -682,26 +616,7 @@ function approveApplication(data) {
     return new Promise((resolve, reject) => {
 
         switch (data.application_type) {
-            case 1:
-                //Acting Appointment
-                if (data.approved === 1) {
-                    data.status = 400;
-                } else {
-                    data.status = 101;
-                }
-                break;
-
-            case 2:
-                //Class II Promotion
-                if (data.approved === 1) {
-                    data.status = 400;
-                } else {
-                    data.status = 101;
-                }
-                break;
-
-            case 3:
-                //Confirmation
+            case ACTING:
                 if (data.approved === 1) {
                     if (data.status % 2 == 0) {
                         data.status = data.status + 100;
@@ -717,20 +632,7 @@ function approveApplication(data) {
                 }
                 break;
 
-            case 4:
-                //Re-employment
-                break;
-
-            case 5:
-                //Releases
-                break;
-
-            case 6:
-                //Retirement
-                break;
-
-            case 7:
-                //Transfer
+            case PROMOTION:
                 if (data.approved === 1) {
                     data.status = 400;
                 } else {
@@ -738,8 +640,31 @@ function approveApplication(data) {
                 }
                 break;
 
-            case 8:
-                //Appointment
+            case CONFIRMATION:
+                if (data.approved === 1) {
+                    if (data.status % 2 == 0) {
+                        data.status = data.status + 100;
+                    } else {
+                        data.status = data.status + 100 - 1;
+                    }
+                } else {
+                    if (data.status % 2 == 0) {
+                        data.status = data.status + 1;
+                    } else {
+                        data.status = data.status - 100;
+                    }
+                }
+                break;
+
+            case TRANSFER:
+                if (data.approved === 1) {
+                    data.status = 400;
+                } else {
+                    data.status = 101;
+                }
+                break;
+
+            case APPOINTMENT:
                 if (data.approved === 1) {
                     data.status = 400;
                 } else {
