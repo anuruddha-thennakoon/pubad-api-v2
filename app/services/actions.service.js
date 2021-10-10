@@ -1,6 +1,8 @@
 var actionsController = require("../controllers/actions.controller");
 var constants = require('../../config/constants');
-const { ADMIN, PUBAD, ACTING, PROMOTION, CONFIRMATION, TRANSFER, APPOINTMENT, PSC, INSTITUTE, SLAS_OFFICER } = require("../../config/types");
+import { 
+    ADMIN, PUBAD, ACTING, PROMOTION, CONFIRMATION, TRANSFER, APPOINTMENT, PSC, INSTITUTE, SLAS_OFFICER 
+} from '../../config/constants';
 
 var actionsService = {
     addOfficer: addOfficer,
