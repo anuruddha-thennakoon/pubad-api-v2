@@ -1,8 +1,5 @@
 var actionsController = require("../controllers/actions.controller");
-var constants = require('../../config/constants');
-import { 
-    ADMIN, PUBAD, ACTING, PROMOTION, CONFIRMATION, TRANSFER, APPOINTMENT, PSC, INSTITUTE, SLAS_OFFICER 
-} from '../../config/constants';
+var cts = require('../../config/constants');
 
 var actionsService = {
     addOfficer: addOfficer,
@@ -490,24 +487,24 @@ function getApplicationsCount(data) {
         let promises = [];
 
         switch (data.user_role) {
-            case ADMIN:
+            case cts.ADMIN:
                 break;
 
-            case PUBAD:
+            case cts.PUBAD:
                 switch (data.application_type) {
-                    case ACTING:
+                    case cts.ACTING:
                         promises[0] = actionsController.getApplicationsCount('Pending', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Approved', 400, data);
                         promises[2] = actionsController.getApplicationsCount('Rejected', 101, data);
                         break;
 
-                    case PROMOTION:
+                    case cts.PROMOTION:
                         promises[0] = actionsController.getApplicationsCount('Pending', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Approved', 400, data);
                         promises[2] = actionsController.getApplicationsCount('Rejected', 101, data);
                         break;
 
-                    case CONFIRMATION:
+                    case cts.CONFIRMATION:
                         promises[0] = actionsController.getApplicationsCount('Pending', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Recommended to PSC', 200, data);
                         promises[2] = actionsController.getApplicationsCount('Submitted to Commission', 300, data);
@@ -516,13 +513,13 @@ function getApplicationsCount(data) {
                         promises[5] = actionsController.getApplicationsCount('Returned to Institute', 101, data);
                         break;
 
-                    case TRANSFER:
+                    case cts.TRANSFER:
                         promises[0] = actionsController.getApplicationsCount('Pending', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Approved', 400, data);
                         promises[2] = actionsController.getApplicationsCount('Returned', 101, data);
                         break;
 
-                    case APPOINTMENT:
+                    case cts.APPOINTMENT:
                         promises[0] = actionsController.getApplicationsCount('Pending', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Approved', 400, data);
                         promises[2] = actionsController.getApplicationsCount('Returned', 101, data);
@@ -530,44 +527,44 @@ function getApplicationsCount(data) {
                 }
                 break;
 
-            case PSC:
+            case cts.PSC:
                 switch (data.application_type) {
-                    case ACTING:
+                    case cts.ACTING:
                         break;
 
-                    case PROMOTION:
+                    case cts.PROMOTION:
                         break;
 
-                    case CONFIRMATION:
+                    case cts.CONFIRMATION:
                         promises[0] = actionsController.getApplicationsCount('Pending', 200, data);
                         promises[1] = actionsController.getApplicationsCount('Returned to PUBAD', 201, data);
                         promises[2] = actionsController.getApplicationsCount('Submitted to Commission', 300, data);
                         promises[3] = actionsController.getApplicationsCount('Order Convey by PSC', 400, data);
                         break;
 
-                    case TRANSFER:
+                    case cts.TRANSFER:
                         break;
 
-                    case APPOINTMENT:
+                    case cts.APPOINTMENT:
                         break;
                 }
                 break;
 
-            case INSTITUTE:
+            case cts.INSTITUTE:
                 switch (data.application_type) {
-                    case ACTING:
+                    case cts.ACTING:
                         promises[0] = actionsController.getApplicationsCount('Submitted to PUBAD', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Returned by PUBAD', 101, data);
                         promises[2] = actionsController.getApplicationsCount('Approved', 400, data);
                         break;
 
-                    case PROMOTION:
+                    case cts.PROMOTION:
                         promises[0] = actionsController.getApplicationsCount('Submitted to PUBAD', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Returned by PUBAD', 101, data);
                         promises[2] = actionsController.getApplicationsCount('Approved', 400, data);
                         break;
 
-                    case CONFIRMATION:
+                    case cts.CONFIRMATION:
                         promises[0] = actionsController.getApplicationsCount('Submitted to PUBAD', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Returned by PUBAD', 101, data);
                         promises[2] = actionsController.getApplicationsCount('Recommended to PSC', 200, data);
@@ -575,13 +572,13 @@ function getApplicationsCount(data) {
                         promises[4] = actionsController.getApplicationsCount('Order Convey by PSC', 400, data);
                         break;
 
-                    case TRANSFER:
+                    case cts.TRANSFER:
                         promises[0] = actionsController.getApplicationsCount('Submitted to PUBAD', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Returned by PUBAD', 101, data);
                         promises[2] = actionsController.getApplicationsCount('Approved', 400, data);
                         break;
 
-                    case APPOINTMENT:
+                    case cts.APPOINTMENT:
                         promises[0] = actionsController.getApplicationsCount('Submitted to PUBAD', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Returned by PUBAD', 101, data);
                         promises[2] = actionsController.getApplicationsCount('Approved', 400, data);
@@ -589,7 +586,7 @@ function getApplicationsCount(data) {
                 }
                 break;
 
-            case SLAS_OFFICER:
+            case cts.SLAS_OFFICER:
                 break;
         }
 
@@ -618,7 +615,7 @@ function approveApplication(data) {
     return new Promise((resolve, reject) => {
 
         switch (data.application_type) {
-            case ACTING:
+            case cts.ACTING:
                 if (data.approved === 1) {
                     if (data.status % 2 == 0) {
                         data.status = data.status + 100;
@@ -634,7 +631,7 @@ function approveApplication(data) {
                 }
                 break;
 
-            case PROMOTION:
+            case cts.PROMOTION:
                 if (data.approved === 1) {
                     data.status = 400;
                 } else {
@@ -642,7 +639,7 @@ function approveApplication(data) {
                 }
                 break;
 
-            case CONFIRMATION:
+            case cts.CONFIRMATION:
                 if (data.approved === 1) {
                     if (data.status % 2 == 0) {
                         data.status = data.status + 100;
@@ -658,7 +655,7 @@ function approveApplication(data) {
                 }
                 break;
 
-            case TRANSFER:
+            case cts.TRANSFER:
                 if (data.approved === 1) {
                     data.status = 400;
                 } else {
@@ -666,7 +663,7 @@ function approveApplication(data) {
                 }
                 break;
 
-            case APPOINTMENT:
+            case cts.APPOINTMENT:
                 if (data.approved === 1) {
                     data.status = 400;
                 } else {
