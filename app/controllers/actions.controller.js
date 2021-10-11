@@ -497,17 +497,25 @@ function addApplication(data) {
 }
 
 function updateApplication(data) {
-    var query = 'UPDATE application SET status = ?,reject_reason = ?,psc_documents=?,pbad_documents=? WHERE id = ?';
+    var query = 'UPDATE application SET status = ?,application = ?,mobile_number=?,place_of_work=?,designation=?,officer_name=?,nic=? WHERE id = ?';
 
     return new Promise((resolve, reject) => {
-        db.query(query, [data.status, data.reject_reason, data.psc_documents, data.pbad_documents, data.id], (error, results, fields) => {
-            if (!!error) {
-                dbFunc.connectionRelease;
-                reject(error);
-            } else {
-                resolve(results);
-            }
-        });
+        db.query(query, [
+            data.status,
+            data.application,
+            data.mobile_number,
+            data.place_of_work,
+            data.designation,
+            data.officer_name,
+            data.nic,
+            data.id], (error, results, fields) => {
+                if (!!error) {
+                    dbFunc.connectionRelease;
+                    reject(error);
+                } else {
+                    resolve(results);
+                }
+            });
     });
 }
 

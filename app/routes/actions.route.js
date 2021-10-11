@@ -58,7 +58,7 @@ function init(router) {
         .post(getApplicationsCount)
     router.route('/get-applications')
         .post(getApplications)
-    router.route('/update-application-status')
+    router.route('/update-application')
         .post(updateApplication)
     router.route('/view-officer')
         .post(viewOfficerById)
