@@ -494,8 +494,11 @@ function getApplicationsCount(data) {
                 switch (data.application_type) {
                     case cts.ACTING:
                         promises[0] = actionsController.getApplicationsCount('Pending', 100, data);
-                        promises[1] = actionsController.getApplicationsCount('Approved', 400, data);
-                        promises[2] = actionsController.getApplicationsCount('Rejected', 101, data);
+                        promises[1] = actionsController.getApplicationsCount('Recommended to PSC', 200, data);
+                        promises[2] = actionsController.getApplicationsCount('Submitted to Commission', 300, data);
+                        promises[3] = actionsController.getApplicationsCount('Order Convey by PSC', 400, data);
+                        promises[4] = actionsController.getApplicationsCount('Returned by PSC', 201, data);
+                        promises[5] = actionsController.getApplicationsCount('Returned to Institute', 101, data);
                         break;
 
                     case cts.PROMOTION:
@@ -555,7 +558,9 @@ function getApplicationsCount(data) {
                     case cts.ACTING:
                         promises[0] = actionsController.getApplicationsCount('Submitted to PUBAD', 100, data);
                         promises[1] = actionsController.getApplicationsCount('Returned by PUBAD', 101, data);
-                        promises[2] = actionsController.getApplicationsCount('Approved', 400, data);
+                        promises[2] = actionsController.getApplicationsCount('Recommended to PSC', 200, data);
+                        promises[3] = actionsController.getApplicationsCount('Submitted to Commission', 300, data);
+                        promises[4] = actionsController.getApplicationsCount('Order Convey by PSC', 400, data);
                         break;
 
                     case cts.PROMOTION:
