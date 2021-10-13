@@ -40,7 +40,8 @@ var actionsController = {
     getAllUsers: getAllUsers,
     approveUser: approveUser,
     getCadres: getCadres,
-    updateCadre: updateCadre
+    updateCadre: updateCadre,
+    generateReports: generateReports
 }
 
 function addOfficer(data) {
@@ -637,9 +638,9 @@ function getApplications(data) {
         let query = '';
 
         if (data.institutes_id != null) {
-            query = 'SELECT *,institutes.name AS submited_by FROM application INNER JOIN institutes ON application.institutes_id = institutes.id WHERE application.institutes_id = ' + data.institutes_id + ' AND (application.application_type = ' + data.application_type + ' AND application.status = ' + data.application_status + ')';
+            query = 'SELECT application.*,institutes.name AS submited_by FROM application INNER JOIN institutes ON application.institutes_id = institutes.id WHERE application.institutes_id = ' + data.institutes_id + ' AND (application.application_type = ' + data.application_type + ' AND application.status = ' + data.application_status + ')';
         } else {
-            query = 'SELECT *,institutes.name AS submited_by FROM application INNER JOIN institutes ON application.institutes_id = institutes.id WHERE application.application_type =' + data.application_type + ' AND application.status = ' + data.application_status;
+            query = 'SELECT application.*,institutes.name AS submited_by FROM application INNER JOIN institutes ON application.institutes_id = institutes.id WHERE application.application_type =' + data.application_type + ' AND application.status = ' + data.application_status;
         }
 
         db.query(query, (error, results, fields) => {
@@ -721,6 +722,30 @@ function updateCadre(data) {
 
     return new Promise((resolve, reject) => {
         db.query(query, [data.no_of_cadre, data.id], (error, results, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+}
+
+function generateReports(data) {
+    let query;
+
+    switch (data.type) {
+        case "A":
+            break;
+        case "B":
+            break;
+    }
+
+    query = 'UPDATE user_accounts SET status = ? WHERE id = ?';
+
+    return new Promise((resolve, reject) => {
+        db.query(query, [data.status, data.id], (error, results, fields) => {
             if (!!error) {
                 dbFunc.connectionRelease;
                 reject(error);
