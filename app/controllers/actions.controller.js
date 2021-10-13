@@ -637,9 +637,9 @@ function getApplications(data) {
         let query = '';
 
         if (data.institutes_id != null) {
-            query = 'SELECT *,institutes.name AS submited_by FROM application INNER JOIN institutes ON application.institutes_id = institutes.id WHERE institutes_id = ' + data.institutes_id + ' AND (application_type = ' + data.application_type + ' AND status = ' + data.application_status + ')';
+            query = 'SELECT *,institutes.name AS submited_by FROM application INNER JOIN institutes ON application.institutes_id = institutes.id WHERE application.institutes_id = ' + data.institutes_id + ' AND (application.application_type = ' + data.application_type + ' AND application.status = ' + data.application_status + ')';
         } else {
-            query = 'SELECT *,institutes.name AS submited_by FROM application INNER JOIN institutes ON application.institutes_id = institutes.id WHERE application_type =' + data.application_type + ' AND status = ' + data.application_status;
+            query = 'SELECT *,institutes.name AS submited_by FROM application INNER JOIN institutes ON application.institutes_id = institutes.id WHERE application.application_type =' + data.application_type + ' AND application.status = ' + data.application_status;
         }
 
         db.query(query, (error, results, fields) => {
