@@ -737,23 +737,19 @@ function generateReports(data) {
     switch (data.type) {
         case "SPECIAL_GRADE_OFFICER_OFFICER_PLACEMENT":
             let query = 'SELECT * FROM officers LEFT JOIN (SELECT designations.designation,institutes.name AS institute_name,service_history.officers_id,service_history.nature_of_attachment,grades.id AS pgrades_id,grades.grade_name,service_history.current_status AS current_status FROM service_history INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN designations ON designations.id = cadre_positions.designations_id INNER JOIN grades ON grades.id = cadre_positions.grades_id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id) AS ser_history ON ser_history.officers_id = officers.id';
-            executeQuery(query);
-            break;
+            return executeQuery(query);
 
         case "GRADE_I_OFFICER_PLACEMENT":
             let query = 'SELECT * FROM officers LEFT JOIN (SELECT designations.designation,institutes.name AS institute_name,service_history.officers_id,service_history.nature_of_attachment,grades.id AS pgrades_id,grades.grade_name,service_history.current_status AS current_status FROM service_history INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN designations ON designations.id = cadre_positions.designations_id INNER JOIN grades ON grades.id = cadre_positions.grades_id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id) AS ser_history ON ser_history.officers_id = officers.id WHERE officers.grades_id = 2';
-            executeQuery(query);
-            break;
+            return executeQuery(query);
 
         case "GRADE_II_OFFICER_PLACEMENT":
             let query = 'SELECT * FROM officers LEFT JOIN (SELECT designations.designation,institutes.name AS institute_name,service_history.officers_id,service_history.nature_of_attachment,grades.id AS pgrades_id,grades.grade_name,service_history.current_status AS current_status FROM service_history INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN designations ON designations.id = cadre_positions.designations_id INNER JOIN grades ON grades.id = cadre_positions.grades_id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id) AS ser_history ON ser_history.officers_id = officers.id WHERE officers.grades_id = 3';
-            executeQuery(query);
-            break;
-            
+            return executeQuery(query);
+
         case "GRADE_III_OFFICER_PLACEMENT":
             let query = 'SELECT * FROM officers LEFT JOIN (SELECT designations.designation,institutes.name AS institute_name,service_history.officers_id,service_history.nature_of_attachment,grades.id AS pgrades_id,grades.grade_name,service_history.current_status AS current_status FROM service_history INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN designations ON designations.id = cadre_positions.designations_id INNER JOIN grades ON grades.id = cadre_positions.grades_id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id) AS ser_history ON ser_history.officers_id = officers.id WHERE officers.grades_id = 4';
-            executeQuery(query);
-            break;
+            return executeQuery(query);
     }
 }
 
