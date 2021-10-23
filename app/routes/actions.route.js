@@ -80,6 +80,8 @@ function init(router) {
         .post(getCadres)
     router.route('/edit-cadre')
         .post(updateCadre)
+    router.route('/generate-reports')
+        .post(generateReports)
 }
 
 function sendUserMessage(req, res) {
@@ -493,6 +495,18 @@ function updateCadre(req, res) {
     let data = req.body;
 
     actionsService.updateCadre(data).then((data) => {
+        res.status(200).send(data);
+    }).catch((err) => {
+        console.log(err);
+        res.status(400).send(err);
+    });
+}
+
+function generateReports(req, res) {
+
+    let data = req.body;
+
+    actionsService.generateReports(data).then((data) => {
         res.status(200).send(data);
     }).catch((err) => {
         console.log(err);

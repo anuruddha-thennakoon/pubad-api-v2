@@ -736,16 +736,22 @@ function generateReports(data) {
     let query;
 
     switch (data.type) {
-        case "A":
+        case "SPECIAL_GRADE_OFFICER_OFFICER_PLACEMENT":
+            query = 'SELECT * FROM officers';
             break;
-        case "B":
+        case "GRADE_I_OFFICER_PLACEMENT":
+            query = 'SELECT * FROM officers';
+            break;
+        case "GRADE_II_OFFICER_PLACEMENT":
+            query = 'SELECT * FROM officers';
+            break;
+        case "GRADE_III_OFFICER_PLACEMENT":
+            query = 'SELECT * FROM officers';
             break;
     }
 
-    query = 'UPDATE user_accounts SET status = ? WHERE id = ?';
-
     return new Promise((resolve, reject) => {
-        db.query(query, [data.status, data.id], (error, results, fields) => {
+        db.query(query, (error, results, fields) => {
             if (!!error) {
                 dbFunc.connectionRelease;
                 reject(error);

@@ -37,7 +37,8 @@ var actionsService = {
     getAllUsers: getAllUsers,
     approveUser: approveUser,
     getCadres: getCadres,
-    updateCadre: updateCadre
+    updateCadre: updateCadre,
+    generateReports: generateReports
 }
 
 function addOfficer(inData) {
@@ -824,6 +825,18 @@ function updateCadre(inData) {
         })
 
     })
+}
+
+function generateReports(data) {
+    return new Promise((resolve, reject) => {
+
+        actionsController.generateReports(data).then((data) => {
+            resolve({ "success": true, "message": "Get data successfully", "data": data });
+        }).catch((err) => {
+            reject(err);
+        })
+
+    });
 }
 
 module.exports = actionsService;
