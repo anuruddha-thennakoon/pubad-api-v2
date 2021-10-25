@@ -211,7 +211,7 @@ function searchOfficer(data) {
 function getServiceHistory(id) {
     return new Promise((resolve, reject) => {
 
-        var query = 'SELECT institutes.id,institutes.name,designations.designation,service_history.start_date,service_history.end_date,service_history.status FROM service_history INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN designations ON cadre_positions.designations_id = designations.id INNER JOIN institutes ON cadre_positions.institutes_id = institutes.id WHERE service_history.officers_id =' + db.escape(id);
+        var query = 'SELECT institutes.id,institutes.name,designations.designation,service_history.start_date,service_history.end_date,service_history.status,cadre_positions.grades_id FROM service_history INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN designations ON cadre_positions.designations_id = designations.id INNER JOIN institutes ON cadre_positions.institutes_id = institutes.id WHERE service_history.officers_id =' + db.escape(id);
 
         db.query(query, (error, results, fields) => {
             if (!!error) {
@@ -736,32 +736,82 @@ function generateReports(data) {
     let query;
 
     switch (data.type) {
-        case "SPECIAL_GRADE_OFFICER_PLACEMENT":
+        //Officer Placement
+        case "OFFICER_PLACEMENT_SPECIAL_GRADE":
             query = 'SELECT * FROM officers LEFT JOIN (SELECT designations.designation,institutes.name AS institute_name,service_history.officers_id,service_history.nature_of_attachment,grades.id AS pgrades_id,grades.grade_name,service_history.current_status AS current_status FROM service_history INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN designations ON designations.id = cadre_positions.designations_id INNER JOIN grades ON grades.id = cadre_positions.grades_id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id) AS ser_history ON ser_history.officers_id = officers.id WHERE officers.grades_id = 1';
             break;
 
-        case "GRADE_I_OFFICER_PLACEMENT":
+        case "OFFICER_PLACEMENT_GRADE_I":
             query = 'SELECT * FROM officers LEFT JOIN (SELECT designations.designation,institutes.name AS institute_name,service_history.officers_id,service_history.nature_of_attachment,grades.id AS pgrades_id,grades.grade_name,service_history.current_status AS current_status FROM service_history INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN designations ON designations.id = cadre_positions.designations_id INNER JOIN grades ON grades.id = cadre_positions.grades_id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id) AS ser_history ON ser_history.officers_id = officers.id WHERE officers.grades_id = 2';
             break;
 
-        case "GRADE_II_OFFICER_PLACEMENT":
+        case "OFFICER_PLACEMENT_GRADE_II":
             query = 'SELECT * FROM officers LEFT JOIN (SELECT designations.designation,institutes.name AS institute_name,service_history.officers_id,service_history.nature_of_attachment,grades.id AS pgrades_id,grades.grade_name,service_history.current_status AS current_status FROM service_history INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN designations ON designations.id = cadre_positions.designations_id INNER JOIN grades ON grades.id = cadre_positions.grades_id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id) AS ser_history ON ser_history.officers_id = officers.id WHERE officers.grades_id = 3';
             break;
 
-        case "GRADE_III_OFFICER_PLACEMENT":
+        case "OFFICER_PLACEMENT_GRADE_III":
             query = 'SELECT * FROM officers LEFT JOIN (SELECT designations.designation,institutes.name AS institute_name,service_history.officers_id,service_history.nature_of_attachment,grades.id AS pgrades_id,grades.grade_name,service_history.current_status AS current_status FROM service_history INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN designations ON designations.id = cadre_positions.designations_id INNER JOIN grades ON grades.id = cadre_positions.grades_id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id) AS ser_history ON ser_history.officers_id = officers.id WHERE officers.grades_id = 4';
+            break;
+
+        //Officer Reports
+        case "OFFICER_REPORTS_SPECIAL_GRADE":
+            switch (data.nature_of_attachment) {
+                case "General Officer Attachment":
+                    query = "SELECT officers.name,designations.designation,institutes.name AS institute_name,cadre_positions.grades_id AS position_grade,officers.grades_id AS officer_grade,service_history.nature_of_attachment FROM officers INNER JOIN service_history ON officers.id = service_history.officers_id INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id INNER JOIN designations ON designations.id = cadre_positions.designations_id WHERE service_history.current_status = 1 AND cadre_positions.grades_id = 1 AND service_history.nature_of_attachment = 'General Officer Attachment'";
+                case "PSC - Acting in Post – Part Time":
+                    query = "SELECT officers.name,designations.designation,institutes.name AS institute_name,cadre_positions.grades_id AS position_grade,officers.grades_id AS officer_grade,service_history.nature_of_attachment FROM officers INNER JOIN service_history ON officers.id = service_history.officers_id INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id INNER JOIN designations ON designations.id = cadre_positions.designations_id WHERE service_history.current_status = 1 AND cadre_positions.grades_id = 1 AND service_history.nature_of_attachment = 'PSC - Acting in Post – Part Time'";
+                case "Below Post Staying":
+                    query = "SELECT officers.name,designations.designation,institutes.name AS institute_name,cadre_positions.grades_id AS position_grade,officers.grades_id AS officer_grade,service_history.nature_of_attachment FROM officers INNER JOIN service_history ON officers.id = service_history.officers_id INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id INNER JOIN designations ON designations.id = cadre_positions.designations_id WHERE service_history.current_status = 1 AND cadre_positions.grades_id = 2 AND service_history.nature_of_attachment = 'Below Post Staying'";
+                case "PubAd Pool Attachment":
+                    query = "SELECT officers.name,designations.designation,institutes.name AS institute_name,cadre_positions.grades_id AS position_grade,officers.grades_id AS officer_grade,service_history.nature_of_attachment FROM officers INNER JOIN service_history ON officers.id = service_history.officers_id INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id INNER JOIN designations ON designations.id = cadre_positions.designations_id WHERE service_history.current_status = 1 AND cadre_positions.grades_id = 1 AND service_history.nature_of_attachment = 'PubAd Pool Attachment'";
+                case "No Pay Leave":
+                    query = "SELECT officers.name,designations.designation,institutes.name AS institute_name,cadre_positions.grades_id AS position_grade,officers.grades_id AS officer_grade,service_history.nature_of_attachment FROM officers INNER JOIN service_history ON officers.id = service_history.officers_id INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id INNER JOIN designations ON designations.id = cadre_positions.designations_id WHERE service_history.current_status = 1 AND cadre_positions.grades_id = 1 AND service_history.nature_of_attachment = 'No Pay Leave'";
+                case "Secondment/Other Posts Attachment":
+                    query = "SELECT officers.name,designations.designation,institutes.name AS institute_name,cadre_positions.grades_id AS position_grade,officers.grades_id AS officer_grade,service_history.nature_of_attachment FROM officers INNER JOIN service_history ON officers.id = service_history.officers_id INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id INNER JOIN designations ON designations.id = cadre_positions.designations_id WHERE service_history.current_status = 1 AND cadre_positions.grades_id = 1 AND service_history.nature_of_attachment = 'Secondment/Other Posts Attachment'";
+                case "Secretary Appointment":
+                    query = "SELECT officers.name,designations.designation,institutes.name AS institute_name,cadre_positions.grades_id AS position_grade,officers.grades_id AS officer_grade,service_history.nature_of_attachment FROM officers INNER JOIN service_history ON officers.id = service_history.officers_id INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id INNER JOIN designations ON designations.id = cadre_positions.designations_id WHERE service_history.current_status = 1 AND cadre_positions.grades_id = 1 AND service_history.nature_of_attachment = 'Secretary Appointment'";
+            }
+            break;
+
+        case "OFFICER_REPORTS_GRADE_I":
+            switch (data.nature_of_attachment) {
+                case "General Officer Attachment":
+                    query = "SELECT officers.name,designations.designation,institutes.name AS institute_name,cadre_positions.grades_id AS position_grade,officers.grades_id AS officer_grade,service_history.nature_of_attachment FROM officers INNER JOIN service_history ON officers.id = service_history.officers_id INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id INNER JOIN designations ON designations.id = cadre_positions.designations_id WHERE service_history.current_status = 1 AND cadre_positions.grades_id = 2 AND service_history.nature_of_attachment = 'General Officer Attachment'";
+                case "Cabinet Acting":
+                    query = "SELECT officers.name,designations.designation,institutes.name AS institute_name,cadre_positions.grades_id AS position_grade,officers.grades_id AS officer_grade,service_history.nature_of_attachment FROM officers INNER JOIN service_history ON officers.id = service_history.officers_id INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id INNER JOIN designations ON designations.id = cadre_positions.designations_id WHERE service_history.current_status = 1 AND cadre_positions.grades_id = 1 AND (service_history.nature_of_attachment = 'Cabinet - Acting in Post' OR service_history.nature_of_attachment = 'Cabinet - Attending to Duties in Post')";
+                case "PSC Acting":
+                    query = "SELECT officers.name,designations.designation,institutes.name AS institute_name,cadre_positions.grades_id AS position_grade,officers.grades_id AS officer_grade,service_history.nature_of_attachment FROM officers INNER JOIN service_history ON officers.id = service_history.officers_id INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id INNER JOIN designations ON designations.id = cadre_positions.designations_id WHERE service_history.current_status = 1 AND cadre_positions.grades_id = 1 AND (service_history.nature_of_attachment = 'PSC - Acting in Post – Full Time' OR service_history.nature_of_attachment = 'PSC - Acting in Post – Part Time')";
+                case "Below Post Staying":
+                    query = "SELECT officers.name,designations.designation,institutes.name AS institute_name,cadre_positions.grades_id AS position_grade,officers.grades_id AS officer_grade,service_history.nature_of_attachment FROM officers INNER JOIN service_history ON officers.id = service_history.officers_id INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id INNER JOIN designations ON designations.id = cadre_positions.designations_id WHERE service_history.current_status = 1 AND cadre_positions.grades_id = 4 AND service_history.nature_of_attachment = 'Below Post Staying'";
+                case "PubAd Pool Attachment":
+                    query = "SELECT officers.name,designations.designation,institutes.name AS institute_name,cadre_positions.grades_id AS position_grade,officers.grades_id AS officer_grade,service_history.nature_of_attachment FROM officers INNER JOIN service_history ON officers.id = service_history.officers_id INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id INNER JOIN designations ON designations.id = cadre_positions.designations_id WHERE service_history.current_status = 1 AND cadre_positions.grades_id = 2 AND service_history.nature_of_attachment = 'PubAd Pool Attachment'";
+                case "No Pay Leave":
+                    query = "SELECT officers.name,designations.designation,institutes.name AS institute_name,cadre_positions.grades_id AS position_grade,officers.grades_id AS officer_grade,service_history.nature_of_attachment FROM officers INNER JOIN service_history ON officers.id = service_history.officers_id INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id INNER JOIN designations ON designations.id = cadre_positions.designations_id WHERE service_history.current_status = 1 AND cadre_positions.grades_id = 2 AND service_history.nature_of_attachment = 'No Pay Leave'";
+                case "Secondment/Other Posts Attachment":
+                    query = "SELECT officers.name,designations.designation,institutes.name AS institute_name,cadre_positions.grades_id AS position_grade,officers.grades_id AS officer_grade,service_history.nature_of_attachment FROM officers INNER JOIN service_history ON officers.id = service_history.officers_id INNER JOIN cadre_positions ON service_history.cadre_positions_id = cadre_positions.id INNER JOIN institutes ON institutes.id = cadre_positions.institutes_id INNER JOIN designations ON designations.id = cadre_positions.designations_id WHERE service_history.current_status = 1 AND cadre_positions.grades_id = 1 AND service_history.nature_of_attachment = 'Secondment/Other Posts Attachment'";
+            }
+            break;
+
+        case "OFFICER_REPORTS_GRADE_II":
+            break;
+
+        case "OFFICER_REPORTS_GRADE_III":
             break;
     }
 
     return new Promise((resolve, reject) => {
-        db.query(query, (error, results, fields) => {
-            if (!!error) {
-                dbFunc.connectionRelease;
-                reject(error);
-            } else {
-                resolve(results);
-            }
-        });
+        if (query) {
+            db.query(query, (error, results, fields) => {
+                if (!!error) {
+                    dbFunc.connectionRelease;
+                    reject(error);
+                } else {
+                    resolve(results);
+                }
+            });
+        } else {
+            resolve([]);
+        }
     });
 }
 

@@ -212,65 +212,65 @@ function searchOfficer(inData) {
 function attachOfficer(inData) {
     return new Promise((resolve, reject) => {
 
-        if (inData.nature_of_attachment == 'SLAS - PSC Acting') {
+        // if (inData.nature_of_attachment == 'SLAS - PSC Acting') {
 
-            var data = {
-                officers_id: inData.officers_id,
-                institutes_id: inData.institutes_id,
-                start_date: inData.start_date,
-                end_date: null,
-                cadre_positions_id: inData.cadre_positions_id,
-                nature_of_attachment: inData.nature_of_attachment,
-                status: 3,
-                current_status: 1
-            }
+        //     var data = {
+        //         officers_id: inData.officers_id,
+        //         institutes_id: inData.institutes_id,
+        //         start_date: inData.start_date,
+        //         end_date: null,
+        //         cadre_positions_id: inData.cadre_positions_id,
+        //         nature_of_attachment: inData.nature_of_attachment,
+        //         status: 3,
+        //         current_status: 1
+        //     }
 
-            actionsController.addServiceHistory(data).then((data2) => {
-                if (data2.length == 0) {
-                    resolve({ "success": false, "message": "Something went wrong" });
-                } else {
-                    resolve({ "success": true, "message": "Officer attached successfully" });
-                }
-            }).catch((err) => {
-                reject(err);
-            })
+        //     actionsController.addServiceHistory(data).then((data2) => {
+        //         if (data2.length == 0) {
+        //             resolve({ "success": false, "message": "Something went wrong" });
+        //         } else {
+        //             resolve({ "success": true, "message": "Officer attached successfully" });
+        //         }
+        //     }).catch((err) => {
+        //         reject(err);
+        //     })
 
-        } else {
-            var temp = {
-                officers_id: inData.officers_id,
-                institutes_id: inData.institutes_id,
-                start_date: inData.start_date,
-                end_date: null,
-                cadre_positions_id: inData.cadre_positions_id,
-                nature_of_attachment: inData.nature_of_attachment,
-                status: 1,
-                current_status: 1
-            }
+        // } else {
+        var temp = {
+            officers_id: inData.officers_id,
+            institutes_id: inData.institutes_id,
+            start_date: inData.start_date,
+            end_date: null,
+            cadre_positions_id: inData.cadre_positions_id,
+            nature_of_attachment: inData.nature_of_attachment,
+            status: 1,
+            current_status: 1
+        }
 
-            actionsController.checkEligibleForAttach(temp).then((data0) => {
+        actionsController.checkEligibleForAttach(temp).then((data0) => {
 
-                if ((data0[0].no_of_cadre - data0[0].occupied) > 0) {
-                    actionsController.updateServiceHistory(temp).then((data1) => {
-                        actionsController.addServiceHistory(temp).then((data2) => {
-                            if (data2.length == 0) {
-                                resolve({ "success": false, "message": "Something went wrong" });
-                            } else {
-                                resolve({ "success": true, "message": "Officer attached successfully" });
-                            }
-                        }).catch((err) => {
-                            reject(err);
-                        })
+            if ((data0[0].no_of_cadre - data0[0].occupied) > 0) {
+                actionsController.updateServiceHistory(temp).then((data1) => {
+                    actionsController.addServiceHistory(temp).then((data2) => {
+                        if (data2.length == 0) {
+                            resolve({ "success": false, "message": "Something went wrong" });
+                        } else {
+                            resolve({ "success": true, "message": "Officer attached successfully" });
+                        }
                     }).catch((err) => {
                         reject(err);
                     })
-                } else {
-                    resolve({ "success": false, "message": "No vacancies for the position" });
-                }
+                }).catch((err) => {
+                    reject(err);
+                })
+            } else {
+                resolve({ "success": false, "message": "No vacancies for the position" });
+            }
 
-            }).catch((err) => {
-                reject(err);
-            })
-        }
+        }).catch((err) => {
+            reject(err);
+        })
+        // }
 
     })
 }
