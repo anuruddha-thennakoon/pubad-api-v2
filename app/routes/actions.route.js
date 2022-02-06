@@ -515,6 +515,3 @@ function generateReports(req, res) {
 }
 
 module.exports.init = init;
-
-
-
