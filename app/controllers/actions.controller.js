@@ -41,7 +41,8 @@ var actionsController = {
     approveUser: approveUser,
     getCadres: getCadres,
     updateCadre: updateCadre,
-    generateReports: generateReports
+    generateReports: generateReports,
+    updateApprovalDocument: updateApprovalDocument
 }
 
 function addOfficer(data) {
@@ -656,10 +657,25 @@ function getApplications(data) {
 }
 
 function approveApplication(data) {
-    var query = 'UPDATE application SET status = ?, reject_reason = ?,approval_document=? WHERE id = ?';
+    var query = 'UPDATE application SET status = ?, reject_reason = ?,approval_details=? WHERE id = ?';
 
     return new Promise((resolve, reject) => {
-        db.query(query, [data.status, data.reject_reason, data.approval_document, data.application_id], (error, results, fields) => {
+        db.query(query, [data.status, data.reject_reason, data.approval_details, data.application_id], (error, results, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+}
+
+function updateApprovalDocument(data) {
+    var query = 'UPDATE application SET approval_document=? WHERE id = ?';
+
+    return new Promise((resolve, reject) => {
+        db.query(query, [data.approval_document, data.application_id], (error, results, fields) => {
             if (!!error) {
                 dbFunc.connectionRelease;
                 reject(error);

@@ -72,6 +72,8 @@ function init(router) {
         .post(createUserAccount)
     router.route('/approve-application')
         .post(approveApplication)
+        router.route('/update-approval-documents')
+        .post(updateApprovalDocument)
     router.route('/all-users')
         .get(getAllUsers)
     router.route('/approve-user')
@@ -455,6 +457,19 @@ function approveApplication(req, res) {
         res.status(400).send(err);
     });
 }
+
+function updateApprovalDocument(req, res) {
+
+    let data = req.body;
+
+    actionsService.updateApprovalDocument(data).then((data) => {
+        res.status(200).send(data);
+    }).catch((err) => {
+        console.log(err);
+        res.status(400).send(err);
+    });
+}
+
 
 function getAllUsers(req, res) {
 

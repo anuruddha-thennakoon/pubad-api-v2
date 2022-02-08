@@ -38,7 +38,8 @@ var actionsService = {
     approveUser: approveUser,
     getCadres: getCadres,
     updateCadre: updateCadre,
-    generateReports: generateReports
+    generateReports: generateReports,
+    updateApprovalDocument: updateApprovalDocument
 }
 
 function addOfficer(inData) {
@@ -695,6 +696,22 @@ function updateApplication(inData) {
     return new Promise((resolve, reject) => {
 
         actionsController.updateApplication(inData).then((data) => {
+            if (data.length == 0) {
+                resolve({ "success": false, "message": "Something went wrong" });
+            } else {
+                resolve({ "success": true, "message": "Application updated successfully" });
+            }
+        }).catch((err) => {
+            reject(err);
+        })
+
+    })
+}
+
+function updateApprovalDocument(inData) {
+    return new Promise((resolve, reject) => {
+
+        actionsController.updateApprovalDocument(inData).then((data) => {
             if (data.length == 0) {
                 resolve({ "success": false, "message": "Something went wrong" });
             } else {
