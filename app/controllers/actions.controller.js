@@ -42,7 +42,8 @@ var actionsController = {
     getCadres: getCadres,
     updateCadre: updateCadre,
     generateReports: generateReports,
-    updateApprovalDocument: updateApprovalDocument
+    updateApprovalDocument: updateApprovalDocument,
+    updateInstitute: updateInstitute
 }
 
 function addOfficer(data) {
@@ -676,6 +677,21 @@ function updateApprovalDocument(data) {
 
     return new Promise((resolve, reject) => {
         db.query(query, [data.approval_document, data.application_id], (error, results, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+}
+
+function updateInstitute(data) {
+    var query = 'UPDATE institutes SET department_head=?,address=?,telephone=?,fax_no=?,email=?,contact_person_name=?,contact_person_telphone=? WHERE id = ?';
+
+    return new Promise((resolve, reject) => {
+        db.query(query, [data.department_head, data.address, data.telephone, data.fax_no, data.email, data.contact_person_name, data.contact_person_telphone, data.id], (error, results, fields) => {
             if (!!error) {
                 dbFunc.connectionRelease;
                 reject(error);

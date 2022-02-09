@@ -72,7 +72,7 @@ function init(router) {
         .post(createUserAccount)
     router.route('/approve-application')
         .post(approveApplication)
-        router.route('/update-approval-documents')
+    router.route('/update-approval-documents')
         .post(updateApprovalDocument)
     router.route('/all-users')
         .get(getAllUsers)
@@ -84,6 +84,8 @@ function init(router) {
         .post(updateCadre)
     router.route('/generate-reports')
         .post(generateReports)
+    router.route('/update-institute')
+        .post(updateInstitute)
 }
 
 function sendUserMessage(req, res) {
@@ -463,6 +465,18 @@ function updateApprovalDocument(req, res) {
     let data = req.body;
 
     actionsService.updateApprovalDocument(data).then((data) => {
+        res.status(200).send(data);
+    }).catch((err) => {
+        console.log(err);
+        res.status(400).send(err);
+    });
+}
+
+function updateInstitute(req, res) {
+
+    let data = req.body;
+
+    actionsService.updateInstitute(data).then((data) => {
         res.status(200).send(data);
     }).catch((err) => {
         console.log(err);
