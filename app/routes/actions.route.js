@@ -1,9 +1,4 @@
 const actionsService = require('../services/actions.service');
-var schema = require('../schema/loginValidationSchema.json');
-var iValidator = require('../../common/iValidator');
-var errorCode = require('../../common/error-code');
-var errorMessage = require('../../common/error-methods');
-var mail = require('../../common/mailer.js');
 
 function init(router) {
     router.route('/send-user-message')
